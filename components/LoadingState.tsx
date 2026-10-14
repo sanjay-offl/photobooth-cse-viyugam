@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 interface LoadingStateProps { message?: string; accentColor?: string; }
 
-export default function LoadingState({ message = 'Loading…', accentColor = '#FFD400' }: LoadingStateProps) {
+export default function LoadingState({ message = 'Loading…', accentColor = '#FF6500' }: LoadingStateProps) {
   return (
     <div className="flex flex-col items-center gap-5 py-12">
       <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1.5, ease: 'linear' }} className="text-5xl select-none">
@@ -17,7 +17,7 @@ export default function LoadingState({ message = 'Loading…', accentColor = '#F
             transition={{ repeat: Infinity, duration: 0.8, delay: i * 0.2 }} />
         ))}
       </div>
-      <p className="font-bold text-lg text-center" style={{ fontFamily: "'Anton', sans-serif", color: accentColor }}>{message}</p>
+      <p className="font-bold text-xl text-center tracking-wide" style={{ fontFamily: "'Bebas Neue', Impact, sans-serif", color: accentColor }}>{message}</p>
     </div>
   );
 }

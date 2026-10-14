@@ -56,7 +56,7 @@ function pillBadge(
   borderColor?: string
 ) {
   ctx.save();
-  ctx.font = "bold 15px 'Inter', sans-serif";
+  ctx.font = "bold 15px 'Rajdhani', sans-serif";
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   const tw = ctx.measureText(text).width;
@@ -70,7 +70,7 @@ function pillBadge(
 
   if (borderColor) {
     ctx.strokeStyle = borderColor;
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 1.5;
     ctx.stroke();
   }
 
@@ -114,8 +114,8 @@ function drawPhotoSlot(
   ctx.save();
 
   // Shadow / back glow
-  ctx.shadowColor = isLight ? 'rgba(0,0,0,0.2)' : 'rgba(255,212,0,0.3)';
-  ctx.shadowBlur = isLight ? 12 : 24;
+  ctx.shadowColor = isLight ? 'rgba(0,0,0,0.18)' : 'rgba(255,101,0,0.35)';
+  ctx.shadowBlur = isLight ? 12 : 26;
 
   // Outer border
   ctx.strokeStyle = borderColor;
@@ -124,7 +124,7 @@ function drawPhotoSlot(
   ctx.shadowColor = 'transparent';
 
   // Inner border
-  ctx.strokeStyle = isLight ? '#000000' : 'rgba(255,255,255,0.4)';
+  ctx.strokeStyle = isLight ? '#0A0A0A' : 'rgba(255,255,255,0.4)';
   ctx.lineWidth = 2;
   ctx.strokeRect(x - 8, y - 8, w + 16, h + 16);
 
@@ -172,8 +172,8 @@ function renderCommonFooter(
     ctx,
     cfg.footerText,
     W / 2,
-    py + 45,
-    "bold 28px 'Anton', 'Impact', sans-serif",
+    py + 44,
+    "bold 32px 'Rajdhani', sans-serif",
     pal.primaryColor,
     'center'
   );
@@ -183,8 +183,8 @@ function renderCommonFooter(
     ctx,
     cfg.title,
     W / 2,
-    py + 105,
-    "bold 52px 'Anton', 'Impact', sans-serif",
+    py + 104,
+    "bold 58px 'Bebas Neue', Impact, sans-serif",
     isLight ? pal.textColor : '#FFFFFF',
     'center',
     pal.primaryColor,
@@ -197,7 +197,7 @@ function renderCommonFooter(
     `${cfg.eventYear} · ${cfg.institutionName}`,
     W / 2,
     py + 162,
-    "bold 22px 'Inter', sans-serif",
+    "bold 22px 'Rajdhani', sans-serif",
     pal.subTextColor,
     'center'
   );
@@ -208,8 +208,8 @@ function renderCommonFooter(
     cfg.secondaryFooter,
     W / 2,
     py + 200,
-    "italic 18px 'Inter', sans-serif",
-    isLight ? '#6B7280' : 'rgba(255,255,255,0.65)',
+    "500 18px 'Inter', sans-serif",
+    isLight ? '#71717A' : 'rgba(255,255,255,0.7)',
     'center'
   );
 }
@@ -285,7 +285,7 @@ function drawVibeCodeBadge(ctx: CanvasRenderingContext2D, cx: number, cy: number
 
   // Inner code brackets < / >
   ctx.fillStyle = '#FFFFFF';
-  ctx.font = `900 ${Math.round(size * 0.32)}px 'Anton', monospace`;
+  ctx.font = `900 ${Math.round(size * 0.36)}px 'Bebas Neue', monospace`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText('</>', 0, 0);
@@ -325,7 +325,7 @@ function drawVibeFloppy(ctx: CanvasRenderingContext2D, cx: number, cy: number, s
   ctx.fillStyle = '#FFFFFF';
   ctx.fillRect(-size * 0.38, size * 0.05, size * 0.76, size * 0.4);
   ctx.fillStyle = '#0F172A';
-  ctx.font = `bold ${Math.round(size * 0.14)}px monospace`;
+  ctx.font = `bold ${Math.round(size * 0.15)}px monospace`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText('VIBE.SH', 0, size * 0.25);
@@ -348,7 +348,7 @@ function renderVibeCoding(
 
   // Halftone rows
   for (let r = 0; r < 16; r++) {
-    drawHalftoneRow(ctx, 20, 60 + r * 78, W - 40, 26, pal.primaryColor, isLight ? 0.06 : 0.09);
+    drawHalftoneRow(ctx, 20, 60 + r * 78, W - 40, 26, pal.primaryColor, isLight ? 0.05 : 0.08);
   }
 
   // Top Badge
@@ -357,7 +357,7 @@ function renderVibeCoding(
     `✦ ${cfg.eventYear} · DIGITAL SELFIE BOOTH ✦`,
     W / 2,
     70,
-    isLight ? '#E5E7EB' : 'rgba(255,212,0,0.15)',
+    isLight ? '#F4F4F5' : 'rgba(255,101,0,0.15)',
     pal.primaryColor,
     pal.primaryColor
   );
@@ -376,11 +376,11 @@ function renderVibeCoding(
     cfg.title,
     W / 2,
     168,
-    "bold 115px 'Anton', 'Impact', sans-serif",
+    "bold 125px 'Bebas Neue', Impact, sans-serif",
     isLight ? pal.textColor : '#FFFFFF',
     'center',
     pal.primaryColor,
-    isLight ? 6 : 8
+    isLight ? 5 : 8
   );
 
   // Subtitle
@@ -389,7 +389,7 @@ function renderVibeCoding(
     cfg.subtitle,
     W / 2,
     244,
-    "bold 28px 'Anton', 'Impact', sans-serif",
+    "bold 32px 'Rajdhani', sans-serif",
     pal.secondaryColor,
     'center'
   );
@@ -416,8 +416,8 @@ function renderVibeCoding(
   drawVibeFloppy(ctx, W / 2, 1285, 70, pal);
 
   // Bottom Left & Right badges
-  pillBadge(ctx, '{2K26}', 140, 1285, isLight ? '#E5E7EB' : 'rgba(255,212,0,0.12)', pal.primaryColor);
-  pillBadge(ctx, '[RUN]', W - 140, 1285, isLight ? '#E5E7EB' : 'rgba(255,212,0,0.12)', pal.primaryColor);
+  pillBadge(ctx, '{2K26}', 140, 1285, isLight ? '#F4F4F5' : 'rgba(255,101,0,0.15)', pal.primaryColor);
+  pillBadge(ctx, '[RUN]', W - 140, 1285, isLight ? '#F4F4F5' : 'rgba(255,101,0,0.15)', pal.primaryColor);
 
   // Footer text
   renderCommonFooter(ctx, cfg, pal, isLight);
@@ -534,11 +534,11 @@ function drawPromptActionBlast(ctx: CanvasRenderingContext2D, cx: number, cy: nu
 
   // Central Text
   ctx.fillStyle = '#000000';
-  ctx.font = `bold ${Math.round(size * 0.16)}px 'Anton', sans-serif`;
+  ctx.font = `bold ${Math.round(size * 0.2)}px 'Bebas Neue', sans-serif`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText('PROMPT', 0, -size * 0.07);
-  ctx.fillText('MASTER', 0, size * 0.09);
+  ctx.fillText('PROMPT', 0, -size * 0.08);
+  ctx.fillText('MASTER', 0, size * 0.1);
 
   ctx.restore();
 }
@@ -558,7 +558,7 @@ function renderPromptWar(
 
   // Comic rays from top center
   ctx.save();
-  ctx.fillStyle = isLight ? 'rgba(220,38,38,0.04)' : 'rgba(255,122,0,0.07)';
+  ctx.fillStyle = isLight ? 'rgba(255,84,0,0.04)' : 'rgba(255,84,0,0.08)';
   for (let i = 0; i < 24; i += 2) {
     const a1 = (i * Math.PI) / 12;
     const a2 = ((i + 1) * Math.PI) / 12;
@@ -577,7 +577,7 @@ function renderPromptWar(
     `⚡ ${cfg.eventYear} · AI PROMPT BATTLE ⚡`,
     W / 2,
     70,
-    isLight ? '#FEE2E2' : 'rgba(255,122,0,0.18)',
+    isLight ? '#F4F4F5' : 'rgba(255,84,0,0.18)',
     pal.primaryColor,
     pal.primaryColor
   );
@@ -596,11 +596,11 @@ function renderPromptWar(
     cfg.title,
     W / 2,
     168,
-    "bold 112px 'Anton', 'Impact', sans-serif",
+    "bold 125px 'Bebas Neue', Impact, sans-serif",
     isLight ? pal.textColor : '#FFFFFF',
     'center',
     pal.primaryColor,
-    isLight ? 6 : 8
+    isLight ? 5 : 8
   );
 
   // Tagline
@@ -609,7 +609,7 @@ function renderPromptWar(
     cfg.tagline,
     W / 2,
     244,
-    "bold 30px 'Anton', 'Impact', sans-serif",
+    "bold 32px 'Rajdhani', sans-serif",
     pal.secondaryColor,
     'center'
   );
@@ -629,8 +629,8 @@ function renderPromptWar(
   drawPromptActionBlast(ctx, W / 2, 1285, 74, pal);
 
   // Bottom Left & Right badges
-  pillBadge(ctx, '⚡ GPT-4', 140, 1285, isLight ? '#FEE2E2' : 'rgba(255,122,0,0.15)', pal.primaryColor);
-  pillBadge(ctx, 'WINNER ⚡', W - 140, 1285, isLight ? '#FEE2E2' : 'rgba(255,122,0,0.15)', pal.primaryColor);
+  pillBadge(ctx, '⚡ GPT-4', 140, 1285, isLight ? '#F4F4F5' : 'rgba(255,84,0,0.15)', pal.primaryColor);
+  pillBadge(ctx, 'WINNER ⚡', W - 140, 1285, isLight ? '#F4F4F5' : 'rgba(255,84,0,0.15)', pal.primaryColor);
 
   renderCommonFooter(ctx, cfg, pal, isLight);
 }
@@ -651,7 +651,7 @@ function drawOutputRadarScope(ctx: CanvasRenderingContext2D, cx: number, cy: num
   ctx.stroke();
 
   // Radar target rings
-  ctx.strokeStyle = 'rgba(163,230,53,0.3)';
+  ctx.strokeStyle = 'rgba(255,101,0,0.35)';
   ctx.lineWidth = 1.5;
   ctx.beginPath();
   ctx.arc(0, 0, size * 0.28, 0, Math.PI * 2);
@@ -714,7 +714,7 @@ function drawOutputTerminalSeal(ctx: CanvasRenderingContext2D, cx: number, cy: n
   ctx.translate(cx, cy);
 
   // Terminal box
-  ctx.fillStyle = isLightTerminal(pal) ? '#052E16' : '#0F172A';
+  ctx.fillStyle = '#141414';
   ctx.strokeStyle = pal.primaryColor;
   ctx.lineWidth = 2.5;
   ctx.beginPath();
@@ -731,17 +731,13 @@ function drawOutputTerminalSeal(ctx: CanvasRenderingContext2D, cx: number, cy: n
   });
 
   // Prompt text
-  ctx.fillStyle = '#A3E635';
+  ctx.fillStyle = pal.primaryColor;
   ctx.font = `bold ${Math.round(size * 0.18)}px monospace`;
   ctx.textAlign = 'left';
   ctx.textBaseline = 'middle';
   ctx.fillText('> 0 ERRORS', -size * 0.45, size * 0.08);
 
   ctx.restore();
-}
-
-function isLightTerminal(pal: ThemeColors) {
-  return pal.bgColor.startsWith('#F');
 }
 
 function renderOutputHunt(
@@ -758,7 +754,7 @@ function renderOutputHunt(
 
   // Terminal grid lines
   ctx.save();
-  ctx.strokeStyle = isLight ? 'rgba(21,128,61,0.08)' : 'rgba(163,230,53,0.07)';
+  ctx.strokeStyle = isLight ? 'rgba(255,101,0,0.06)' : 'rgba(255,101,0,0.08)';
   ctx.lineWidth = 1;
   for (let y = 0; y < H; y += 30) {
     ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
@@ -774,7 +770,7 @@ function renderOutputHunt(
     `🔍 ${cfg.eventYear} · DEBUG_CHALLENGE 🔍`,
     W / 2,
     70,
-    isLight ? '#DCFCE7' : 'rgba(163,230,53,0.15)',
+    isLight ? '#F4F4F5' : 'rgba(255,101,0,0.15)',
     pal.primaryColor,
     pal.primaryColor
   );
@@ -793,11 +789,11 @@ function renderOutputHunt(
     cfg.title,
     W / 2,
     168,
-    "bold 115px 'Anton', 'Impact', sans-serif",
+    "bold 125px 'Bebas Neue', Impact, sans-serif",
     isLight ? pal.textColor : '#FFFFFF',
     'center',
     pal.primaryColor,
-    isLight ? 6 : 8
+    isLight ? 5 : 8
   );
 
   // Subtitle
@@ -806,7 +802,7 @@ function renderOutputHunt(
     cfg.subtitle,
     W / 2,
     244,
-    "bold 26px monospace, sans-serif",
+    "bold 30px 'Rajdhani', monospace, sans-serif",
     pal.secondaryColor,
     'center'
   );
@@ -833,8 +829,8 @@ function renderOutputHunt(
   drawOutputTerminalSeal(ctx, W / 2, 1285, 72, pal);
 
   // Bottom Left & Right badges
-  pillBadge(ctx, '[PASS]', 140, 1285, isLight ? '#DCFCE7' : 'rgba(163,230,53,0.12)', pal.primaryColor);
-  pillBadge(ctx, '100% OK', W - 140, 1285, isLight ? '#DCFCE7' : 'rgba(163,230,53,0.12)', pal.primaryColor);
+  pillBadge(ctx, '[PASS]', 140, 1285, isLight ? '#F4F4F5' : 'rgba(255,101,0,0.15)', pal.primaryColor);
+  pillBadge(ctx, '100% OK', W - 140, 1285, isLight ? '#F4F4F5' : 'rgba(255,101,0,0.15)', pal.primaryColor);
 
   renderCommonFooter(ctx, cfg, pal, isLight);
 }
@@ -915,7 +911,7 @@ function drawMovieClapperboard(ctx: CanvasRenderingContext2D, cx: number, cy: nu
 
   // Scene / Take text
   ctx.fillStyle = pal.primaryColor;
-  ctx.font = `bold ${Math.round(size * 0.13)}px 'Anton', sans-serif`;
+  ctx.font = `bold ${Math.round(size * 0.16)}px 'Bebas Neue', sans-serif`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText('SCENE 01 · TAKE 01', 0, size * 0.18);
@@ -948,7 +944,7 @@ function drawMovieTicket(ctx: CanvasRenderingContext2D, cx: number, cy: number, 
 
   // Ticket text
   ctx.fillStyle = '#000000';
-  ctx.font = `900 ${Math.round(size * 0.16)}px 'Anton', sans-serif`;
+  ctx.font = `900 ${Math.round(size * 0.2)}px 'Bebas Neue', sans-serif`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText('★ ADMIT ONE · VIP ★', 0, 0);
@@ -969,7 +965,7 @@ function renderMovieMania(
   ctx.fillRect(0, 0, W, H);
 
   // Marquee bulb header border (Y: 282, safely above photo at Y: 330)
-  ctx.fillStyle = isLight ? '#FEF3C7' : '#1C1917';
+  ctx.fillStyle = isLight ? '#F4F4F5' : '#1C1917';
   ctx.fillRect(0, 275, W, 18);
   for (let i = 0; i < 24; i++) {
     ctx.fillStyle = i % 2 === 0 ? pal.primaryColor : pal.secondaryColor;
@@ -984,7 +980,7 @@ function renderMovieMania(
     `🎬 ${cfg.eventYear} · HOLLYWOOD PREMIERE 🎬`,
     W / 2,
     70,
-    isLight ? '#FEF3C7' : 'rgba(255,159,28,0.18)',
+    isLight ? '#F4F4F5' : 'rgba(255,122,26,0.18)',
     pal.primaryColor,
     pal.primaryColor
   );
@@ -1003,11 +999,11 @@ function renderMovieMania(
     cfg.title,
     W / 2,
     168,
-    "bold 118px 'Anton', 'Impact', sans-serif",
+    "bold 125px 'Bebas Neue', Impact, sans-serif",
     isLight ? pal.textColor : '#FFFFFF',
     'center',
     pal.primaryColor,
-    isLight ? 6 : 8
+    isLight ? 5 : 8
   );
 
   // Subtitle
@@ -1016,7 +1012,7 @@ function renderMovieMania(
     cfg.subtitle,
     W / 2,
     244,
-    "bold 28px 'Anton', 'Impact', sans-serif",
+    "bold 32px 'Rajdhani', sans-serif",
     pal.secondaryColor,
     'center'
   );
@@ -1036,8 +1032,8 @@ function renderMovieMania(
   drawMovieTicket(ctx, W / 2, 1285, 70, pal);
 
   // Bottom Left & Right badges
-  pillBadge(ctx, '★ OSCAR', 140, 1285, isLight ? '#FEF3C7' : 'rgba(255,212,0,0.12)', pal.primaryColor);
-  pillBadge(ctx, 'DIRECTOR ★', W - 140, 1285, isLight ? '#FEF3C7' : 'rgba(255,212,0,0.12)', pal.primaryColor);
+  pillBadge(ctx, '★ OSCAR', 140, 1285, isLight ? '#F4F4F5' : 'rgba(255,101,0,0.15)', pal.primaryColor);
+  pillBadge(ctx, 'DIRECTOR ★', W - 140, 1285, isLight ? '#F4F4F5' : 'rgba(255,101,0,0.15)', pal.primaryColor);
 
   renderCommonFooter(ctx, cfg, pal, isLight);
 }
@@ -1158,7 +1154,7 @@ function drawChessCheckmateSeal(ctx: CanvasRenderingContext2D, cx: number, cy: n
   ctx.stroke();
 
   ctx.fillStyle = pal.badgeText;
-  ctx.font = `bold ${Math.round(size * 0.14)}px 'Anton', sans-serif`;
+  ctx.font = `bold ${Math.round(size * 0.18)}px 'Bebas Neue', sans-serif`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText('CHECKMATE', 0, size * 0.39);
@@ -1178,9 +1174,9 @@ function renderChessArena(
   ctx.fillStyle = pal.bgColor;
   ctx.fillRect(0, 0, W, H);
 
-  // Checkered outer background watermark pattern
+  // Checkered outer background watermark pattern in subtle orange
   const sq = 60;
-  ctx.fillStyle = isLight ? 'rgba(146,64,14,0.04)' : 'rgba(255,215,0,0.035)';
+  ctx.fillStyle = isLight ? 'rgba(255,101,0,0.03)' : 'rgba(255,101,0,0.04)';
   for (let r = 0; r < Math.ceil(H / sq); r++) {
     for (let c = 0; c < Math.ceil(W / sq); c++) {
       if ((r + c) % 2 === 0) {
@@ -1189,7 +1185,7 @@ function renderChessArena(
     }
   }
 
-  // Double gold border perimeter
+  // Double orange border perimeter
   ctx.strokeStyle = pal.primaryColor;
   ctx.lineWidth = 6;
   ctx.strokeRect(20, 20, W - 40, H - 40);
@@ -1204,7 +1200,7 @@ function renderChessArena(
     `♟️ ${cfg.eventYear} · GRANDMASTER DUEL ♟️`,
     W / 2,
     70,
-    isLight ? '#FEF3C7' : 'rgba(255,215,0,0.18)',
+    isLight ? '#F4F4F5' : 'rgba(255,101,0,0.18)',
     pal.primaryColor,
     pal.primaryColor
   );
@@ -1223,11 +1219,11 @@ function renderChessArena(
     cfg.title,
     W / 2,
     168,
-    "bold 118px 'Anton', 'Impact', sans-serif",
+    "bold 125px 'Bebas Neue', Impact, sans-serif",
     isLight ? pal.textColor : '#FFFFFF',
     'center',
     pal.primaryColor,
-    isLight ? 6 : 8
+    isLight ? 5 : 8
   );
 
   // Tagline
@@ -1236,7 +1232,7 @@ function renderChessArena(
     cfg.tagline,
     W / 2,
     244,
-    "bold 28px 'Anton', 'Impact', sans-serif",
+    "bold 32px 'Rajdhani', sans-serif",
     pal.secondaryColor,
     'center'
   );
@@ -1263,8 +1259,8 @@ function renderChessArena(
   drawChessCheckmateSeal(ctx, W / 2, 1285, 68, pal);
 
   // Bottom Left & Right badges
-  pillBadge(ctx, '🏆 1 - 0', 140, 1285, isLight ? '#FEF3C7' : 'rgba(255,215,0,0.15)', pal.primaryColor);
-  pillBadge(ctx, 'VICTORY 🏆', W - 140, 1285, isLight ? '#FEF3C7' : 'rgba(255,215,0,0.15)', pal.primaryColor);
+  pillBadge(ctx, '🏆 1 - 0', 140, 1285, isLight ? '#F4F4F5' : 'rgba(255,101,0,0.15)', pal.primaryColor);
+  pillBadge(ctx, 'VICTORY 🏆', W - 140, 1285, isLight ? '#F4F4F5' : 'rgba(255,101,0,0.15)', pal.primaryColor);
 
   renderCommonFooter(ctx, cfg, pal, isLight);
 }
@@ -1326,10 +1322,10 @@ export const DEFAULT_FRAME_CONFIG = {
   photoY: 330,
   photoW: 900,
   photoH: 680,
-  primaryColor: '#FFD400',
-  secondaryColor: '#FF9F1C',
+  primaryColor: '#FF6500',
+  secondaryColor: '#FF8833',
   eventTitle: 'VIBE CODING',
   tagline: 'BUILD SOMETHING. CAPTURE THE MOMENT.',
-  institutionName: 'CSE Department · PPG Institute of Technology',
+  institutionName: 'CSE Department · PPG Institute of Technology, Coimbatore',
   eventDate: 'VIYUGAM 2K26',
 };

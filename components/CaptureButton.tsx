@@ -8,7 +8,7 @@ interface CaptureButtonProps {
   accentColor?: string;
 }
 
-export default function CaptureButton({ onClick, disabled, label = 'CAPTURE', accentColor = '#FFD400' }: CaptureButtonProps) {
+export default function CaptureButton({ onClick, disabled, label = 'CAPTURE', accentColor = '#FF6500' }: CaptureButtonProps) {
   return (
     <motion.button onClick={onClick} disabled={disabled} aria-label={label} id="capture-btn"
       className="relative flex items-center justify-center focus:outline-none rounded-full disabled:opacity-50 disabled:cursor-not-allowed"

@@ -1,56 +1,78 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 :root {
-  --yellow: #FFD400;
-  --orange: #FF9F1C;
-  --cream: #F5EBDD;
-  --black: #000000;
+  --orange: #FF6500;
+  --orange-bright: #FF7A1A;
+  --orange-glow: rgba(255, 101, 0, 0.4);
+  --black: #0A0A0A;
+  --black-surface: #141414;
+  --black-card: #181818;
   --white: #FFFFFF;
+  --muted: #A3A3A3;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 html, body {
-  background: #000;
-  color: #fff;
-  font-family: 'Inter', system-ui, sans-serif;
+  background: #0A0A0A;
+  color: #FFFFFF;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   min-height: 100%;
   overflow-x: hidden;
   scroll-behavior: smooth;
 }
 
-/* ── Retro button styles ────────────────────────────────────────────── */
+/* ── Typography Utility Classes ─────────────────────────────────────── */
+.font-bebas {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+}
+
+.font-rajdhani {
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── Viyugam Button Styles (Orange, Black, White) ────────────────────── */
 .btn-retro {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: var(--yellow);
-  color: #000;
-  font-family: 'Anton', 'Impact', sans-serif;
-  font-size: 1rem;
-  letter-spacing: 0.05em;
-  padding: 0.65rem 1.5rem;
-  border: 3px solid #000;
+  background: var(--orange);
+  color: #000000;
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  padding: 0.65rem 1.6rem;
+  border: 2px solid #000000;
   border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.1s, box-shadow 0.1s;
-  box-shadow: 4px 4px 0 #000;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  box-shadow: 0 4px 16px rgba(255, 101, 0, 0.35), 3px 3px 0 #000000;
   white-space: nowrap;
   -webkit-tap-highlight-color: transparent;
 }
+
 .btn-retro:hover:not(:disabled) {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 #000;
+  background: var(--orange-bright);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 101, 0, 0.55), 4px 4px 0 #000000;
 }
+
 .btn-retro:active:not(:disabled) {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 #000;
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(255, 101, 0, 0.3), 1px 1px 0 #000000;
 }
+
 .btn-retro:disabled {
-  opacity: 0.4;
+  opacity: 0.45;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
 .btn-retro-outline {
@@ -59,24 +81,28 @@ html, body {
   justify-content: center;
   gap: 0.5rem;
   background: transparent;
-  color: var(--yellow);
-  font-family: 'Anton', 'Impact', sans-serif;
-  font-size: 1rem;
-  letter-spacing: 0.05em;
+  color: var(--orange);
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
   padding: 0.65rem 1.5rem;
-  border: 3px solid var(--yellow);
+  border: 2px solid var(--orange);
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.15s ease;
   white-space: nowrap;
   -webkit-tap-highlight-color: transparent;
 }
+
 .btn-retro-outline:hover:not(:disabled) {
-  background: rgba(255, 212, 0, 0.1);
-  transform: translate(-1px, -1px);
+  background: rgba(255, 101, 0, 0.15);
+  border-color: var(--orange-bright);
+  color: #FFFFFF;
+  transform: translateY(-1px);
 }
+
 .btn-retro-outline:active:not(:disabled) {
-  transform: translate(1px, 1px);
+  transform: translateY(1px);
 }
 
 .btn-retro-sm {
@@ -84,68 +110,95 @@ html, body {
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
-  background: transparent;
-  color: var(--yellow);
-  font-family: 'Inter', sans-serif;
-  font-size: 0.8rem;
+  background: rgba(20, 20, 20, 0.85);
+  color: var(--orange);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.85rem;
   font-weight: 700;
-  padding: 0.5rem 1rem;
-  border: 2px solid var(--yellow);
+  letter-spacing: 0.05em;
+  padding: 0.45rem 1rem;
+  border: 1.5px solid rgba(255, 101, 0, 0.4);
   border-radius: 6px;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.15s ease;
   -webkit-tap-highlight-color: transparent;
 }
+
 .btn-retro-sm:hover {
-  background: rgba(255, 212, 0, 0.15);
+  background: rgba(255, 101, 0, 0.2);
+  border-color: var(--orange);
+  color: #FFFFFF;
 }
 
-/* ── Retro poster heading ─────────────────────────────────────────────── */
+/* ── Poster Headings ─────────────────────────────────────────────────── */
 .retro-heading {
-  font-family: 'Anton', 'Impact', sans-serif;
+  font-family: 'Bebas Neue', Impact, sans-serif;
   text-transform: uppercase;
-  color: #fff;
-  -webkit-text-stroke: 4px var(--yellow);
-  paint-order: stroke fill;
-  text-shadow: 6px 6px 0 rgba(0,0,0,0.8), 0 0 40px rgba(255,212,0,0.4);
-  line-height: 1;
-  letter-spacing: 0.02em;
+  color: #FFFFFF;
+  letter-spacing: 0.04em;
+  line-height: 0.95;
+  text-shadow: 0 0 35px rgba(255, 101, 0, 0.4), 4px 4px 0 rgba(0, 0, 0, 0.9);
 }
 
 .retro-heading-sm {
-  font-family: 'Anton', 'Impact', sans-serif;
+  font-family: 'Bebas Neue', Impact, sans-serif;
   text-transform: uppercase;
-  color: var(--yellow);
+  color: var(--orange);
   letter-spacing: 0.08em;
 }
 
+/* ── Section Tag (Rajdhani) ─────────────────────────────────────────── */
+.section-tag {
+  display: inline-block;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
 /* ── Scrollbar ───────────────────────────────────────────────────────── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #111; }
-::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 3px; }
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0A0A;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--orange);
+  border-radius: 3px;
+}
 
 /* ── Focus ring ─────────────────────────────────────────────────────── */
-:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
 
-/* ── Halftone overlay pattern ────────────────────────────────────────── */
+/* ── Halftone pattern ────────────────────────────────────────────────── */
 .halftone-bg {
-  background-image: radial-gradient(circle, rgba(255,212,0,0.08) 1px, transparent 1px);
-  background-size: 20px 20px;
+  background-image: radial-gradient(circle, rgba(255, 101, 0, 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
-/* ── Card styles ─────────────────────────────────────────────────────── */
+/* ── Viyugam Card Styles ─────────────────────────────────────────────── */
 .retro-card {
-  background: #0a0a0a;
-  border: 3px solid var(--yellow);
-  border-radius: 16px;
-  box-shadow: 0 0 40px rgba(255,212,0,0.15), inset 0 1px 0 rgba(255,212,0,0.1);
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
-/* ── Grid frame ──────────────────────────────────────────────────────── */
+.retro-card:hover {
+  border-color: rgba(255, 101, 0, 0.5);
+}
+
 .frame-border {
-  border: 6px solid var(--yellow);
-  border-radius: 12px;
-  box-shadow: 0 0 60px rgba(255,212,0,0.35), 8px 8px 0 #FF9F1C;
+  border: 4px solid var(--orange);
+  border-radius: 14px;
+  box-shadow: 0 0 50px rgba(255, 101, 0, 0.35);
 }
 
 @media (prefers-reduced-motion: reduce) {

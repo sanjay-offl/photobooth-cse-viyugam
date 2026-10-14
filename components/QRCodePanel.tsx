@@ -12,7 +12,7 @@ interface QRCodePanelProps {
   accentColor?: string;
 }
 
-export default function QRCodePanel({ shareUrl, downloadUrl, isLocal, onNewSession, accentColor = '#FFD400' }: QRCodePanelProps) {
+export default function QRCodePanel({ shareUrl, downloadUrl, isLocal, onNewSession, accentColor = '#FF6500' }: QRCodePanelProps) {
   const [qrDataUrl, setQrDataUrl] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [qrError, setQrError] = useState(false);
@@ -32,17 +32,17 @@ export default function QRCodePanel({ shareUrl, downloadUrl, isLocal, onNewSessi
 
   const downloadDirect = () => {
     const a = document.createElement('a');
-    a.href = downloadUrl; a.download = 'event-selfie.jpg'; a.target = '_blank';
+    a.href = downloadUrl; a.download = 'viyugam-selfie.jpg'; a.target = '_blank';
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
   };
 
   return (
     <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, type: 'spring' }}
-      className="w-full rounded-2xl bg-black p-6 flex flex-col items-center gap-5"
-      style={{ border: `4px solid ${accentColor}`, boxShadow: `0 0 40px ${accentColor}33` }}>
+      className="w-full rounded-2xl bg-[#141414] p-6 flex flex-col items-center gap-5"
+      style={{ border: `3px solid ${accentColor}`, boxShadow: `0 0 40px ${accentColor}33` }}>
       <div className="flex gap-2 text-xl">{'⭐'.repeat(5)}</div>
       <h2 className="text-3xl font-black text-white text-center tracking-wide"
-        style={{ fontFamily: "'Anton', sans-serif", textShadow: `3px 3px 0 ${accentColor}` }}>
+        style={{ fontFamily: "'Bebas Neue', Impact, sans-serif" }}>
         YOUR MEMORY IS READY!
       </h2>
       <p className="text-gray-300 text-center text-sm max-w-xs">

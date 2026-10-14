@@ -6,17 +6,17 @@ interface Star {
 }
 
 const STARS: Star[] = [
-  { x: 4, y: 5, r: 24, points: 12, color: '#FFD400', delay: 0 },
-  { x: 92, y: 5, r: 24, points: 12, color: '#FFD400', delay: 0.3 },
-  { x: 8, y: 22, r: 16, points: 8, color: '#FF9F1C', delay: 0.6 },
-  { x: 88, y: 22, r: 16, points: 8, color: '#FF9F1C', delay: 0.9 },
-  { x: 5, y: 50, r: 14, points: 6, color: '#FFD400', delay: 1.2 },
-  { x: 93, y: 50, r: 14, points: 6, color: '#FFD400', delay: 1.5 },
-  { x: 5, y: 78, r: 18, points: 10, color: '#FF9F1C', delay: 0.4 },
-  { x: 93, y: 78, r: 18, points: 10, color: '#FF9F1C', delay: 0.7 },
-  { x: 5, y: 93, r: 24, points: 16, color: '#FFD400', delay: 0.2 },
-  { x: 93, y: 93, r: 24, points: 16, color: '#FFD400', delay: 0.5 },
-  { x: 50, y: 2, r: 14, points: 8, color: '#FF9F1C', delay: 0.8 },
+  { x: 4, y: 5, r: 24, points: 12, color: '#FF6500', delay: 0 },
+  { x: 92, y: 5, r: 24, points: 12, color: '#FF6500', delay: 0.3 },
+  { x: 8, y: 22, r: 16, points: 8, color: '#FF8833', delay: 0.6 },
+  { x: 88, y: 22, r: 16, points: 8, color: '#FF8833', delay: 0.9 },
+  { x: 5, y: 50, r: 14, points: 6, color: '#FF6500', delay: 1.2 },
+  { x: 93, y: 50, r: 14, points: 6, color: '#FF6500', delay: 1.5 },
+  { x: 5, y: 78, r: 18, points: 10, color: '#FF8833', delay: 0.4 },
+  { x: 93, y: 78, r: 18, points: 10, color: '#FF8833', delay: 0.7 },
+  { x: 5, y: 93, r: 24, points: 16, color: '#FF6500', delay: 0.2 },
+  { x: 93, y: 93, r: 24, points: 16, color: '#FF6500', delay: 0.5 },
+  { x: 50, y: 2, r: 14, points: 8, color: '#FF8833', delay: 0.8 },
   { x: 20, y: 10, r: 10, points: 6, color: '#FFFFFF', delay: 1.0 },
   { x: 80, y: 10, r: 10, points: 6, color: '#FFFFFF', delay: 1.3 },
 ];
@@ -92,7 +92,7 @@ function SpeechBubbleSVG({ color }: { color: string }) {
 
 export default function RetroDecorations() {
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+    <div className="absolute inset-0 pointer-events-none overflow-hidden select-none" aria-hidden="true">
       {/* Starbursts */}
       {STARS.map((s, i) => (
         <motion.div
@@ -100,7 +100,7 @@ export default function RetroDecorations() {
           className="absolute"
           style={{ left: `${s.x}%`, top: `${s.y}%`, width: s.r * 2, height: s.r * 2, transform: 'translate(-50%,-50%)' }}
           initial={{ opacity: 0, scale: 0, rotate: -30 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          animate={{ opacity: 0.9, scale: 1, rotate: 0 }}
           transition={{ delay: s.delay, duration: 0.5, type: 'spring' }}
         >
           <svg viewBox={`${-s.r} ${-s.r} ${s.r * 2} ${s.r * 2}`} className="w-full h-full">
@@ -117,8 +117,8 @@ export default function RetroDecorations() {
         { left: '92%', top: '70%', size: 45 },
       ].map((pos, i) => (
         <motion.div key={`cam-${i}`} className="absolute" style={{ left: pos.left, top: pos.top, width: pos.size, height: pos.size * 0.83, transform: 'translate(-50%, -50%)' }}
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 + i * 0.2, duration: 0.5 }}>
-          <CameraIconSVG color={i % 2 === 0 ? '#FFD400' : '#FF9F1C'} />
+          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 0.85, y: 0 }} transition={{ delay: 0.8 + i * 0.2, duration: 0.5 }}>
+          <CameraIconSVG color={i % 2 === 0 ? '#FF6500' : '#FF8833'} />
         </motion.div>
       ))}
 
@@ -128,8 +128,8 @@ export default function RetroDecorations() {
         { left: '93%', top: '38%', w: 60, h: 24 },
       ].map((pos, i) => (
         <motion.div key={`film-${i}`} className="absolute" style={{ left: pos.left, top: pos.top, width: pos.w, height: pos.h, transform: 'translate(-50%, -50%)' }}
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2 + i * 0.3 }}>
-          <FilmStripSVG color="#FFD400" />
+          initial={{ opacity: 0 }} animate={{ opacity: 0.8 }} transition={{ delay: 1.2 + i * 0.3 }}>
+          <FilmStripSVG color="#FF6500" />
         </motion.div>
       ))}
 
@@ -140,7 +140,7 @@ export default function RetroDecorations() {
       ].map((pos, i) => (
         <motion.div key={`smiley-${i}`} className="absolute" style={{ left: pos.left, top: pos.top, width: pos.size, height: pos.size, transform: 'translate(-50%, -50%)' }}
           animate={{ rotate: [0, 5, -5, 0] }} transition={{ repeat: Infinity, duration: 3, delay: i }}>
-          <SmileySVG color="#FFD400" />
+          <SmileySVG color="#FF6500" />
         </motion.div>
       ))}
 
@@ -150,8 +150,8 @@ export default function RetroDecorations() {
         { left: '88%', top: '9%', size: 32 },
       ].map((pos, i) => (
         <motion.div key={`pixel-${i}`} className="absolute" style={{ left: pos.left, top: pos.top, width: pos.size, height: pos.size, transform: 'translate(-50%, -50%)' }}
-          initial={{ opacity: 0 }} animate={{ opacity: 0.8 }} transition={{ delay: 1.5 }}>
-          <PixelGridSVG color="#FF9F1C" />
+          initial={{ opacity: 0 }} animate={{ opacity: 0.7 }} transition={{ delay: 1.5 }}>
+          <PixelGridSVG color="#FF8833" />
         </motion.div>
       ))}
 
@@ -162,14 +162,14 @@ export default function RetroDecorations() {
       ].map((pos, i) => (
         <motion.div key={`speech-${i}`} className="absolute" style={{ left: pos.left, top: pos.top, width: pos.size, height: pos.size * 0.8, transform: 'translate(-50%, -50%)' }}
           animate={{ y: [0, -5, 0] }} transition={{ repeat: Infinity, duration: 2.5, delay: i * 0.7 }}>
-          <SpeechBubbleSVG color={i % 2 === 0 ? '#FFD400' : '#FF9F1C'} />
+          <SpeechBubbleSVG color={i % 2 === 0 ? '#FF6500' : '#FF8833'} />
         </motion.div>
       ))}
 
       {/* Halftone dots (decorative rows) */}
-      <div className="absolute inset-x-0 bottom-16 flex justify-around opacity-10 pointer-events-none">
+      <div className="absolute inset-x-0 bottom-16 flex justify-around opacity-15 pointer-events-none">
         {Array.from({ length: 30 }).map((_, i) => (
-          <div key={i} className="w-2 h-2 rounded-full bg-yellow-400" />
+          <div key={i} className="w-2 h-2 rounded-full bg-[#FF6500]" />
         ))}
       </div>
     </div>

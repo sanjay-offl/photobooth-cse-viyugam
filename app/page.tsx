@@ -6,82 +6,86 @@ import RetroDecorations from '@/components/RetroDecorations';
 
 function EventCard({ event, index }: { event: EventConfig; index: number }) {
   const href = event.id === 'chess-arena' ? '/chess' : `/booth?event=${event.id}`;
+  const isTechnical = ['vibe-coding', 'prompt-war', 'output-hunt'].includes(event.id);
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.08, type: 'spring', stiffness: 120 }}
-      whileHover={{ scale: 1.02, y: -3 }}
-      className="relative rounded-2xl overflow-hidden cursor-pointer group shadow-lg"
+      whileHover={{ scale: 1.02, y: -4 }}
+      className="relative rounded-2xl overflow-hidden cursor-pointer group transition-all"
       style={{
-        border: `3px solid ${event.cardBorder}`,
-        boxShadow: `0 0 24px ${event.cardBorder}22`,
+        background: '#141414',
+        border: '1px solid rgba(255, 255, 255, 0.08)',
+        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6)',
       }}
     >
       <Link href={href} id={`event-card-${event.id}`} className="block">
-        {/* Gradient background */}
+        {/* Subtle orange hover glow overlay */}
         <div
-          className="absolute inset-0 opacity-10 transition-opacity group-hover:opacity-20"
-          style={{ background: event.gradient }}
+          className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-10 pointer-events-none"
+          style={{ background: 'linear-gradient(135deg, #FF6500 0%, #000000 100%)' }}
         />
 
-        <div className="relative p-4 sm:p-5 flex flex-col gap-2.5 sm:gap-3 bg-black/85">
-          {/* Header Row: Emoji + Title + Theme Badge */}
-          <div className="flex items-start justify-between gap-2">
-            <div className="flex items-center gap-3">
-              <span className="text-3xl sm:text-4xl select-none">{event.emoji}</span>
-              <div>
-                <h2
-                  className="text-xl sm:text-2xl font-black leading-tight tracking-wide uppercase"
-                  style={{
-                    fontFamily: "'Anton', 'Impact', sans-serif",
-                    color: event.primaryColor,
-                    textShadow: '2px 2px 0 #000',
-                  }}
-                >
-                  {event.title}
-                </h2>
-                <p className="text-[10px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest">
-                  {event.subtitle}
-                </p>
-              </div>
-            </div>
-
-            {/* Theme Badge */}
+        <div className="relative p-5 sm:p-6 flex flex-col gap-3">
+          {/* Header row: Dept category pill + Theme badge */}
+          <div className="flex items-center justify-between gap-2">
             <span
-              className="text-[10px] font-black px-2 py-0.5 rounded-full border border-gray-700 bg-gray-900/90 text-gray-300 flex items-center gap-1 flex-shrink-0"
-              title="Supports both Dark and Light theme frames"
+              className="text-[11px] font-bold font-rajdhani tracking-[0.16em] uppercase px-2.5 py-0.5 rounded-full"
+              style={{
+                color: '#FF6500',
+                background: 'rgba(255, 101, 0, 0.12)',
+                border: '1px solid rgba(255, 101, 0, 0.3)',
+              }}
+            >
+              CSE {isTechnical ? 'TECHNICAL' : 'NON-TECHNICAL'}
+            </span>
+
+            <span
+              className="text-[10px] font-bold px-2 py-0.5 rounded-full border border-neutral-800 bg-neutral-900 text-neutral-300 flex items-center gap-1"
+              title="Supports both Dark & Light theme frames"
             >
               <span>🌙</span>
               <span>☀️</span>
             </span>
           </div>
 
+          {/* Title & Emoji row */}
+          <div className="flex items-center gap-3 mt-1">
+            <span className="text-3xl sm:text-4xl select-none flex-shrink-0">{event.emoji}</span>
+            <div>
+              <h2
+                className="text-2xl sm:text-3xl font-black font-bebas tracking-wide uppercase leading-tight text-white group-hover:text-[#FF6500] transition-colors"
+              >
+                {event.title}
+              </h2>
+              <p className="text-xs font-rajdhani font-semibold text-[#A3A3A3] tracking-widest uppercase">
+                {event.subtitle}
+              </p>
+            </div>
+          </div>
+
           {/* Description */}
-          <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
+          <p className="text-neutral-300 text-xs sm:text-sm font-inter leading-relaxed">
             {event.description}
           </p>
 
           {/* Tagline */}
-          <p
-            className="text-[11px] sm:text-xs font-bold uppercase tracking-wider line-clamp-1"
-            style={{ color: event.secondaryColor }}
-          >
-            {event.tagline}
+          <p className="text-xs font-bold font-rajdhani tracking-wider text-[#FF6500] uppercase">
+            ✦ {event.tagline}
           </p>
 
           {/* CTA Button */}
           <motion.div
-            className="mt-1 w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg font-black text-xs sm:text-sm uppercase tracking-wider text-black transition-transform"
+            className="mt-2 w-full flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-black font-bebas text-lg tracking-wider transition-all"
             style={{
-              background: event.primaryColor,
-              fontFamily: "'Anton', sans-serif",
-              boxShadow: '3px 3px 0 #000',
+              background: '#FF6500',
+              boxShadow: '0 4px 16px rgba(255, 101, 0, 0.3)',
             }}
             whileTap={{ scale: 0.97 }}
           >
-            {event.id === 'chess-arena' ? '♟️ Enter Arena' : '📸 Open Booth'}
+            {event.id === 'chess-arena' ? '♟️ ENTER CHESS ARENA' : '📸 OPEN PHOTO BOOTH'}
           </motion.div>
         </div>
       </Link>
@@ -91,96 +95,114 @@ function EventCard({ event, index }: { event: EventConfig; index: number }) {
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-black overflow-x-hidden px-3 sm:px-4 py-6 sm:py-10">
+    <main className="relative min-h-screen bg-[#0A0A0A] text-white overflow-x-hidden px-4 py-8 sm:py-12">
       <RetroDecorations />
 
-      <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center gap-6 sm:gap-8">
+      <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center gap-8 sm:gap-10">
         {/* Hero Section */}
         <motion.div
-          className="text-center flex flex-col items-center gap-2 w-full"
+          className="text-center flex flex-col items-center gap-3 w-full"
           initial={{ y: -30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ type: 'spring', stiffness: 100 }}
         >
-          <motion.p
-            className="text-[10px] sm:text-xs font-bold tracking-widest sm:tracking-[0.3em] uppercase text-center px-2"
-            style={{ color: '#FF9F1C', fontFamily: "'Anton', sans-serif" }}
-            animate={{ opacity: [0.7, 1, 0.7] }}
-            transition={{ repeat: Infinity, duration: 2.5 }}
-          >
-            ✦ VIYUGAM 2K26 · CSE DEPT · PPG INSTITUTE OF TECHNOLOGY ✦
-          </motion.p>
+          {/* Eyebrow badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[rgba(255,101,0,0.35)] bg-[rgba(255,101,0,0.1)]">
+            <span className="w-2 h-2 rounded-full bg-[#FF6500] animate-pulse" />
+            <span className="text-[11px] sm:text-xs font-bold font-rajdhani tracking-[0.2em] uppercase text-[#FF6500]">
+              NATIONAL LEVEL TECHNICAL SYMPOSIUM · CSE DEPT
+            </span>
+          </div>
 
+          {/* Viyugam Main Title Lockup */}
           <h1
-            className="text-6xl sm:text-7xl md:text-8xl font-black uppercase leading-none tracking-tight my-1"
+            className="text-6xl sm:text-8xl md:text-9xl font-bebas font-black tracking-tight leading-none my-1"
             style={{
-              fontFamily: "'Anton', 'Impact', sans-serif",
-              color: '#FFFFFF',
-              WebkitTextStroke: '3px #FFD400',
-              paintOrder: 'stroke fill',
-              textShadow:
-                '5px 5px 0 rgba(0,0,0,0.9), 0 0 35px rgba(255,212,0,0.3)',
+              textShadow: '0 0 45px rgba(255, 101, 0, 0.45)',
             }}
           >
-            VIBE<br />SNAP
+            VIYU<span className="text-[#FF6500]">GAM</span> <span className="text-white">2K26</span>
           </h1>
 
-          <p
-            className="text-orange-400 font-black tracking-widest text-xs sm:text-sm uppercase"
-            style={{ fontFamily: "'Anton', sans-serif" }}
-          >
-            DIGITAL RETRO SELFIE BOOTH
+          {/* Subheading */}
+          <div className="flex flex-col items-center gap-1">
+            <p className="text-xl sm:text-2xl font-bebas tracking-widest text-[#FF6500] uppercase">
+              DIGITAL RETRO SELFIE BOOTH & CHESS ARENA
+            </p>
+            <p className="text-xs sm:text-sm font-rajdhani text-neutral-400 font-semibold tracking-wider uppercase">
+              PPG INSTITUTE OF TECHNOLOGY, COIMBATORE · 15 OCTOBER 2026
+            </p>
+          </div>
+
+          <p className="text-neutral-300 text-xs sm:text-sm max-w-md text-center leading-relaxed font-inter mt-1">
+            Pick your event, snap a selfie in our custom retro event frames, toggle between dark & light themes, and scan the QR code to download instantly to your phone.
           </p>
 
-          <p className="text-gray-400 text-xs sm:text-sm max-w-sm text-center leading-relaxed mt-0.5">
-            5 bespoke event frame designs with custom logos, dark & light themes, and instant mobile QR downloads.
-          </p>
+          {/* Highlights / Badges Bar */}
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-2">
+            {[
+              '40+ EVENTS',
+              '8 DEPARTMENTS',
+              'CASH PRIZES',
+              'INSTANT QR DOWNLOAD',
+            ].map((badge) => (
+              <span
+                key={badge}
+                className="text-[10px] sm:text-xs font-rajdhani font-bold px-3 py-1 rounded-md bg-[#141414] border border-[rgba(255,255,255,0.08)] text-neutral-300 tracking-wider"
+              >
+                ✦ {badge}
+              </span>
+            ))}
+          </div>
         </motion.div>
 
         {/* Event Selection Grid */}
-        <div className="w-full flex flex-col gap-3 sm:gap-4">
-          <motion.div
-            className="flex items-center justify-center gap-2 text-yellow-400 font-black text-xs tracking-[0.3em] uppercase text-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            <span>✦</span>
-            <span>SELECT YOUR EVENT</span>
-            <span>✦</span>
-          </motion.div>
+        <div className="w-full flex flex-col gap-4">
+          <div className="flex items-center justify-center gap-3">
+            <div className="h-px w-12 bg-[#FF6500]/40" />
+            <h2 className="text-xs sm:text-sm font-rajdhani font-bold tracking-[0.25em] text-[#FF6500] uppercase">
+              CHOOSE YOUR CSE EVENT
+            </h2>
+            <div className="h-px w-12 bg-[#FF6500]/40" />
+          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {ALL_EVENTS.map((event, i) => (
               <EventCard key={event.id} event={event} index={i} />
             ))}
           </div>
         </div>
 
-        {/* Privacy notice */}
+        {/* Privacy & Info Card */}
         <motion.div
-          className="w-full max-w-sm rounded-xl border border-gray-800 bg-black/70 p-3.5 text-center"
+          className="w-full max-w-md rounded-xl p-4 text-center retro-card"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
         >
-          <p className="text-[11px] sm:text-xs text-gray-400 leading-relaxed">
-            <span className="text-yellow-400 font-bold">🔒 Privacy First:</span>{' '}
-            Camera runs locally in your browser. Cloud photos are auto-deleted after 24 hours. No personal data collected.
+          <p className="text-xs text-neutral-400 leading-relaxed font-inter">
+            <span className="text-[#FF6500] font-bold">🔒 Privacy Notice:</span>{' '}
+            Your camera is accessed only with your permission. Cloud photos are temporary and automatically deleted after 24 hours.
           </p>
         </motion.div>
 
-        {/* Footer Admin Link */}
-        <div className="flex items-center gap-4 text-xs text-gray-600">
-          <Link
-            href="/admin"
-            className="hover:text-gray-400 transition-colors"
-          >
+        {/* Footer */}
+        <footer className="flex flex-col sm:flex-row items-center gap-3 text-xs text-neutral-500 font-rajdhani tracking-wider">
+          <Link href="/admin" className="hover:text-[#FF6500] transition-colors">
             Admin Settings
           </Link>
-          <span>·</span>
-          <span>VIYUGAM 2K26</span>
-        </div>
+          <span className="hidden sm:inline">·</span>
+          <span>PPG INSTITUTE OF TECHNOLOGY, COIMBATORE</span>
+          <span className="hidden sm:inline">·</span>
+          <a
+            href="https://viyugam2k26.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#FF6500] hover:underline"
+          >
+            viyugam2k26.vercel.app ↗
+          </a>
+        </footer>
       </div>
     </main>
   );

@@ -57,8 +57,8 @@ export default function PhotoDownloadClient({ id }: Props) {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: 'My VIBE CODING Selfie',
-          text: 'Check out my VIBE CODING photo booth selfie! 📸',
+          title: 'My VIYUGAM 2K26 Selfie',
+          text: 'Check out my VIYUGAM 2K26 photo booth selfie! 📸',
           url: window.location.href,
         });
       } catch { /* user cancelled */ }
@@ -71,16 +71,21 @@ export default function PhotoDownloadClient({ id }: Props) {
   const expiresIn = photo ? Math.max(0, Math.floor((new Date(photo.expiresAt).getTime() - Date.now()) / 3600_000)) : 0;
 
   return (
-    <main className="min-h-screen bg-black halftone-bg flex flex-col items-center justify-center px-4 py-8">
+    <main className="min-h-screen bg-[#0A0A0A] halftone-bg flex flex-col items-center justify-center px-4 py-8">
       {/* Header */}
       <motion.div className="text-center mb-6 sm:mb-8" initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>
-        <p className="text-yellow-400 font-bold tracking-[0.3em] text-[10px] sm:text-xs uppercase mb-1"
-          style={{ fontFamily: "'Anton', sans-serif" }}>✦ VIBESNAP ✦</p>
-        <h1 className="retro-heading text-4xl sm:text-6xl">VIYUGAM 2K26</h1>
-        <p className="text-orange-400 text-xs sm:text-sm font-bold tracking-wider mt-1">DIGITAL EVENT MEMORY</p>
+        <p className="text-[#FF6500] font-bold font-rajdhani tracking-[0.25em] text-[11px] sm:text-xs uppercase mb-1">
+          ✦ PPG INSTITUTE OF TECHNOLOGY, COIMBATORE ✦
+        </p>
+        <h1 className="text-5xl sm:text-7xl font-bebas font-black tracking-tight text-white leading-none">
+          VIYU<span className="text-[#FF6500]">GAM</span> 2K26
+        </h1>
+        <p className="text-neutral-400 font-rajdhani text-xs sm:text-sm font-bold tracking-widest uppercase mt-1">
+          DIGITAL EVENT MEMORY · CSE DEPARTMENT
+        </p>
       </motion.div>
 
-      {status === 'loading' && <LoadingState message="Fetching your selfie…" />}
+      {status === 'loading' && <LoadingState message="Fetching your selfie…" accentColor="#FF6500" />}
 
       {(status === 'not-found' || status === 'expired' || status === 'error' || status === 'local-mode') && (
         <motion.div className="retro-card p-8 max-w-sm w-full text-center flex flex-col items-center gap-5"
@@ -88,14 +93,14 @@ export default function PhotoDownloadClient({ id }: Props) {
           <span className="text-5xl">
             {status === 'expired' ? '⏰' : status === 'local-mode' ? '🔧' : '🔍'}
           </span>
-          <h2 className="text-xl font-black text-yellow-400" style={{ fontFamily: "'Anton', sans-serif" }}>
-            {status === 'expired' ? 'Photo Expired' :
-             status === 'local-mode' ? 'Local Mode Active' :
-             status === 'not-found' ? 'Photo Not Found' : 'Something Went Wrong'}
+          <h2 className="text-2xl font-black font-bebas tracking-wide text-[#FF6500]">
+            {status === 'expired' ? 'PHOTO EXPIRED' :
+             status === 'local-mode' ? 'LOCAL MODE ACTIVE' :
+             status === 'not-found' ? 'PHOTO NOT FOUND' : 'SOMETHING WENT WRONG'}
           </h2>
-          <p className="text-gray-400 text-sm leading-relaxed">
+          <p className="text-neutral-400 text-xs sm:text-sm font-inter leading-relaxed">
             {status === 'expired' && 'This photo has expired and been deleted after 24 hours.'}
-            {status === 'local-mode' && 'This booth is running without cloud storage. Cross-device QR sharing is unavailable. Please download directly on the booth device.'}
+            {status === 'local-mode' && 'This booth is running in local offline mode. Cross-device QR sharing is unavailable. Please download directly on the booth device.'}
             {status === 'not-found' && 'This photo doesn\'t exist or may have already been deleted.'}
             {status === 'error' && 'Unable to load photo. Please try again or visit the booth.'}
           </p>
@@ -108,10 +113,16 @@ export default function PhotoDownloadClient({ id }: Props) {
           initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ type: 'spring' }}>
 
           {/* Photo */}
-          <div className="frame-border w-full rounded-xl overflow-hidden">
+          <div
+            className="w-full rounded-2xl overflow-hidden shadow-2xl"
+            style={{
+              border: '3px solid #FF6500',
+              boxShadow: '0 0 45px rgba(255, 101, 0, 0.35)',
+            }}
+          >
             <Image
               src={photo.downloadUrl}
-              alt="Your VIBE CODING selfie"
+              alt="Your VIYUGAM 2K26 selfie"
               width={photo.width}
               height={photo.height}
               className="w-full h-auto block"
@@ -123,24 +134,24 @@ export default function PhotoDownloadClient({ id }: Props) {
           {/* Actions */}
           <div className="flex flex-col gap-3 w-full">
             <motion.button onClick={handleDownload} whileTap={{ scale: 0.97 }}
-              className="btn-retro w-full text-lg py-4" id="download-photo-btn">
+              className="btn-retro w-full text-lg py-3.5" id="download-photo-btn">
               ⬇️ DOWNLOAD MY PHOTO
             </motion.button>
             <motion.button onClick={handleShare} whileTap={{ scale: 0.97 }}
-              className="btn-retro-outline w-full" id="share-photo-btn">
-              📤 Share
+              className="btn-retro-outline w-full text-base py-3" id="share-photo-btn">
+              📤 Share Link
             </motion.button>
-            <Link href="/booth" className="btn-retro-outline w-full text-center text-sm text-gray-400 border-gray-700 hover:border-yellow-400 hover:text-yellow-400">
+            <Link href="/booth" className="btn-retro-outline w-full text-center text-xs py-2 text-neutral-400 border-neutral-700 hover:border-[#FF6500] hover:text-white">
               📸 Take Your Own Selfie
             </Link>
           </div>
 
           {/* Expiry & privacy */}
           <div className="text-center">
-            <p className="text-xs text-gray-600">
-              ⏳ This photo will be deleted in ~{expiresIn}h
+            <p className="text-xs text-neutral-500 font-rajdhani tracking-wider">
+              ⏳ This photo will be auto-deleted in ~{expiresIn}h
             </p>
-            <p className="text-xs text-gray-700 mt-1">
+            <p className="text-[11px] text-neutral-600 mt-0.5 font-inter">
               Anyone with this link can access this photo.
             </p>
           </div>
