@@ -1,14 +1,37 @@
 @import "tailwindcss";
 
 :root {
-  --orange: #FF6500;
-  --orange-bright: #FF7A1A;
-  --orange-glow: rgba(255, 101, 0, 0.4);
-  --black: #0A0A0A;
-  --black-surface: #141414;
-  --black-card: #181818;
-  --white: #FFFFFF;
-  --muted: #A3A3A3;
+  --bg-main: #F8F6F2;
+  --bg-surface: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-card-alt: #FFF8F4;
+  --bg-warm: #F2EDE8;
+  --primary: #E05C1A;
+  --primary-hover: #C84E13;
+  --primary-glow: rgba(224, 92, 26, 0.15);
+  --secondary: #1A1A1A;
+  --text-main: #1A1A1A;
+  --text-body: #333333;
+  --text-muted: #666666;
+  --border: #E8DDD6;
+  --border-subtle: #F0E8E2;
+}
+
+.dark {
+  --bg-main: #121212;
+  --bg-surface: #1A1A1A;
+  --bg-card: #1E1E1E;
+  --bg-card-alt: #242424;
+  --bg-warm: #262626;
+  --primary: #E05C1A;
+  --primary-hover: #F26F2E;
+  --primary-glow: rgba(224, 92, 26, 0.35);
+  --secondary: #F5F5F5;
+  --text-main: #F5F5F5;
+  --text-body: #D4D4D4;
+  --text-muted: #A3A3A3;
+  --border: #2E2E2E;
+  --border-subtle: #242424;
 }
 
 * {
@@ -16,12 +39,13 @@
 }
 
 html, body {
-  background: #0A0A0A;
-  color: #FFFFFF;
+  background-color: var(--bg-main);
+  color: var(--text-main);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   min-height: 100%;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* ── Typography Utility Classes ─────────────────────────────────────── */
@@ -37,36 +61,109 @@ html, body {
   font-family: 'Inter', sans-serif;
 }
 
-/* ── Viyugam Button Styles (Orange, Black, White) ────────────────────── */
+.label-small-caps {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ── Buttons (Deep Orange #E05C1A, Near Black #1A1A1A, White) ──────── */
+.btn-fest-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #E05C1A;
+  color: #FFFFFF;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.75rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(224, 92, 26, 0.25);
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-fest-primary:hover:not(:disabled) {
+  background-color: #C84E13;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(224, 92, 26, 0.38);
+}
+
+.btn-fest-primary:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(224, 92, 26, 0.2);
+}
+
+.btn-fest-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  color: #E05C1A;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.75rem;
+  border: 1.5px solid #E05C1A;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-fest-outline:hover:not(:disabled) {
+  background-color: rgba(224, 92, 26, 0.08);
+  border-color: #C84E13;
+  color: #C84E13;
+  transform: translateY(-2px);
+}
+
+.btn-fest-outline:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+/* Backward compatibility aliases */
 .btn-retro {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: var(--orange);
-  color: #000000;
-  font-family: 'Bebas Neue', Impact, sans-serif;
-  font-size: 1.15rem;
+  background-color: #E05C1A;
+  color: #FFFFFF;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
   letter-spacing: 0.08em;
-  padding: 0.65rem 1.6rem;
-  border: 2px solid #000000;
-  border-radius: 8px;
+  text-transform: uppercase;
+  padding: 0.75rem 1.75rem;
+  border-radius: 9999px;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-  box-shadow: 0 4px 16px rgba(255, 101, 0, 0.35), 3px 3px 0 #000000;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(224, 92, 26, 0.25);
   white-space: nowrap;
   -webkit-tap-highlight-color: transparent;
 }
 
 .btn-retro:hover:not(:disabled) {
-  background: var(--orange-bright);
+  background-color: #C84E13;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 101, 0, 0.55), 4px 4px 0 #000000;
+  box-shadow: 0 6px 20px rgba(224, 92, 26, 0.38);
 }
 
 .btn-retro:active:not(:disabled) {
   transform: translateY(1px);
-  box-shadow: 0 2px 8px rgba(255, 101, 0, 0.3), 1px 1px 0 #000000;
 }
 
 .btn-retro:disabled {
@@ -80,29 +177,26 @@ html, body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: transparent;
-  color: var(--orange);
-  font-family: 'Bebas Neue', Impact, sans-serif;
-  font-size: 1.15rem;
+  background-color: transparent;
+  color: #E05C1A;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
   letter-spacing: 0.08em;
-  padding: 0.65rem 1.5rem;
-  border: 2px solid var(--orange);
-  border-radius: 8px;
+  text-transform: uppercase;
+  padding: 0.75rem 1.75rem;
+  border: 1.5px solid #E05C1A;
+  border-radius: 9999px;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
   white-space: nowrap;
   -webkit-tap-highlight-color: transparent;
 }
 
 .btn-retro-outline:hover:not(:disabled) {
-  background: rgba(255, 101, 0, 0.15);
-  border-color: var(--orange-bright);
-  color: #FFFFFF;
+  background-color: rgba(224, 92, 26, 0.08);
+  border-color: #C84E13;
+  color: #C84E13;
   transform: translateY(-1px);
-}
-
-.btn-retro-outline:active:not(:disabled) {
-  transform: translateY(1px);
 }
 
 .btn-retro-sm {
@@ -110,95 +204,121 @@ html, body {
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
-  background: rgba(20, 20, 20, 0.85);
-  color: var(--orange);
+  background-color: #FFF8F4;
+  color: #E05C1A;
   font-family: 'Rajdhani', sans-serif;
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   padding: 0.45rem 1rem;
-  border: 1.5px solid rgba(255, 101, 0, 0.4);
-  border-radius: 6px;
+  border: 1px solid #E8DDD6;
+  border-radius: 9999px;
   cursor: pointer;
   transition: all 0.15s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
 .btn-retro-sm:hover {
-  background: rgba(255, 101, 0, 0.2);
-  border-color: var(--orange);
-  color: #FFFFFF;
+  background-color: rgba(224, 92, 26, 0.12);
+  border-color: #E05C1A;
 }
 
-/* ── Poster Headings ─────────────────────────────────────────────────── */
-.retro-heading {
-  font-family: 'Bebas Neue', Impact, sans-serif;
-  text-transform: uppercase;
-  color: #FFFFFF;
-  letter-spacing: 0.04em;
-  line-height: 0.95;
-  text-shadow: 0 0 35px rgba(255, 101, 0, 0.4), 4px 4px 0 rgba(0, 0, 0, 0.9);
+/* ── Modern Light Cards with Orange Accent ──────────────────────────── */
+.card-event {
+  background-color: #FFFFFF;
+  border-left: 4px solid #E05C1A;
+  border-top: 1px solid #E8DDD6;
+  border-right: 1px solid #E8DDD6;
+  border-bottom: 1px solid #E8DDD6;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.retro-heading-sm {
-  font-family: 'Bebas Neue', Impact, sans-serif;
-  text-transform: uppercase;
-  color: var(--orange);
-  letter-spacing: 0.08em;
+.dark .card-event {
+  background-color: #1E1E1E;
+  border-top: 1px solid #2E2E2E;
+  border-right: 1px solid #2E2E2E;
+  border-bottom: 1px solid #2E2E2E;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* ── Section Tag (Rajdhani) ─────────────────────────────────────────── */
-.section-tag {
-  display: inline-block;
+.card-event:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(224, 92, 26, 0.08), 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Selfie Booth Preview Frame with Light Orange Inner Glow ────────── */
+.selfie-preview-frame {
+  border: 3px solid #E05C1A;
+  border-radius: 20px;
+  background-color: #FFFFFF;
+  box-shadow: inset 0 0 24px rgba(224, 92, 26, 0.12), 0 10px 35px rgba(224, 92, 26, 0.1);
+  overflow: hidden;
+}
+
+.dark .selfie-preview-frame {
+  background-color: #1A1A1A;
+  box-shadow: inset 0 0 30px rgba(224, 92, 26, 0.25), 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Tag Chips ──────────────────────────────────────────────────────── */
+.tag-chip-orange {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 1rem;
+  border: 1.5px solid #E05C1A;
+  background-color: #FFF3EB;
+  color: #E05C1A;
+  border-radius: 9999px;
   font-family: 'Rajdhani', sans-serif;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--orange);
 }
 
-/* ── Scrollbar ───────────────────────────────────────────────────────── */
-::-webkit-scrollbar {
-  width: 6px;
+.dark .tag-chip-orange {
+  background-color: rgba(224, 92, 26, 0.15);
 }
-::-webkit-scrollbar-track {
-  background: #0A0A0A;
+
+/* ── Halftone dot background (used by admin & download pages) ───────── */
+.halftone-bg {
+  background-image: radial-gradient(circle, var(--primary-glow) 1.4px, transparent 1.4px);
+  background-size: 24px 24px;
 }
-::-webkit-scrollbar-thumb {
-  background: var(--orange);
-  border-radius: 3px;
+
+/* ── Generic card surface (theme aware) ─────────────────────────────── */
+.retro-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.06);
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dark .retro-card {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+}
+
+.retro-card:hover {
+  border-color: rgba(224, 92, 26, 0.5);
+}
+
+/* ── Hide scrollbar for clean strip ─────────────────────────────────── */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* ── Focus ring ─────────────────────────────────────────────────────── */
 :focus-visible {
-  outline: 2px solid var(--orange);
+  outline: 2px solid #E05C1A;
   outline-offset: 3px;
-}
-
-/* ── Halftone pattern ────────────────────────────────────────────────── */
-.halftone-bg {
-  background-image: radial-gradient(circle, rgba(255, 101, 0, 0.07) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-/* ── Viyugam Card Styles ─────────────────────────────────────────────── */
-.retro-card {
-  background: #141414;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-  transition: border-color 0.2s ease, transform 0.2s ease;
-}
-
-.retro-card:hover {
-  border-color: rgba(255, 101, 0, 0.5);
-}
-
-.frame-border {
-  border: 4px solid var(--orange);
-  border-radius: 14px;
-  box-shadow: 0 0 50px rgba(255, 101, 0, 0.35);
 }
 
 @media (prefers-reduced-motion: reduce) {

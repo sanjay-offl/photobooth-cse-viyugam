@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { renderFrame, canvasToDataURL } from '@/lib/canvas-frame';
@@ -15,6 +15,13 @@ interface PhotoReviewProps {
   onStartAgain: () => void;
 }
 
+interface SaveResult {
+  id: string;
+  shareUrl: string;
+  downloadUrl: string;
+  isLocal: boolean;
+}
+
 export default function PhotoReview({
   capturedCanvas,
   eventConfig,
@@ -24,47 +31,61 @@ export default function PhotoReview({
 }: PhotoReviewProps) {
   const [frameTheme, setFrameTheme] = useState<FrameTheme>(initialTheme);
   const [framedDataUrl, setFramedDataUrl] = useState<string | null>(null);
-  const [saveResult, setSaveResult] = useState<{
-    id: string;
-    shareUrl: string;
-    downloadUrl: string;
-    isLocal: boolean;
-  } | null>(null);
-  const [step, setStep] = useState<'rendering' | 'preview' | 'qr' | 'error'>('rendering');
-  const [errorMsg, setErrorMsg] = useState('');
+  const [renderedKey, setRenderedKey] = useState<string | null>(null);
+  const [renderError, setRenderError] = useState('');
+  const [saveResult, setSaveResult] = useState<SaveResult | null>(null);
+  const [saveResultKey, setSaveResultKey] = useState<string | null>(null);
+  const [saveError, setSaveError] = useState('');
+  const [savingQR, setSavingQR] = useState(false);
   const [consentGiven, setConsentGiven] = useState(false);
-  const mounted = useRef(true);
 
   const pal = getEventThemeColors(eventConfig, frameTheme);
   const accent = pal.primaryColor;
 
-  useEffect(() => {
-    mounted.current = true;
-    return () => {
-      mounted.current = false;
-    };
-  }, []);
+  // Identifies the current render inputs. State that belongs to a previous
+  // render (frame, QR result) is ignored by comparing these keys, which lets us
+  // derive the current step during render instead of resetting state in effects.
+  const renderKey = `${eventConfig.id}:${frameTheme}`;
 
-  // Re-render whenever capturedCanvas, eventConfig, or frameTheme changes
+  // Re-render the frame whenever the captured canvas, event or theme changes.
   useEffect(() => {
     if (!capturedCanvas) return;
-    setStep('rendering');
-    setFramedDataUrl(null);
-    setSaveResult(null);
+    let cancelled = false;
 
     renderFrame(capturedCanvas, eventConfig, frameTheme)
       .then((framedCanvas) => {
-        if (!mounted.current) return;
+        if (cancelled) return;
         setFramedDataUrl(canvasToDataURL(framedCanvas, 'jpeg', 0.92));
-        setStep('preview');
+        setRenderError('');
+        setRenderedKey(renderKey);
       })
       .catch((err) => {
         console.error(err);
-        if (!mounted.current) return;
-        setErrorMsg('Failed to render the photo frame.');
-        setStep('error');
+        if (cancelled) return;
+        setRenderError('Failed to render the photo frame.');
+        setRenderedKey(renderKey);
       });
-  }, [capturedCanvas, eventConfig, frameTheme]);
+
+    return () => {
+      cancelled = true;
+    };
+  }, [capturedCanvas, eventConfig, frameTheme, renderKey]);
+
+  const isRendering = !!capturedCanvas && renderedKey !== renderKey;
+  const hasRenderError = !!renderError && renderedKey === renderKey;
+  const hasQr = !!saveResult && saveResultKey === renderKey;
+  const step: 'rendering' | 'preview' | 'qr' | 'error' = hasRenderError
+    ? 'error'
+    : isRendering
+      ? 'rendering'
+      : hasQr
+        ? 'qr'
+        : 'preview';
+
+  const changeTheme = (theme: FrameTheme) => {
+    setSaveError('');
+    setFrameTheme(theme);
+  };
 
   const handleGetQR = async () => {
     if (!framedDataUrl) return;
@@ -72,7 +93,8 @@ export default function PhotoReview({
       alert('Please check the box to consent to cloud storage for QR code sharing.');
       return;
     }
-    setStep('rendering');
+    setSavingQR(true);
+    setSaveError('');
     try {
       const { savePhoto } = await import('@/lib/photo-service');
       const result = await savePhoto(framedDataUrl, {
@@ -82,14 +104,13 @@ export default function PhotoReview({
         retentionHours: 24,
         consentGiven: true,
       });
-      if (!mounted.current) return;
       setSaveResult(result);
-      setStep('qr');
+      setSaveResultKey(renderKey);
     } catch (err) {
       console.error(err);
-      if (!mounted.current) return;
-      setErrorMsg('Failed to save photo to cloud. You can still download directly below.');
-      setStep('preview');
+      setSaveError('Failed to save photo to cloud. You can still download directly below.');
+    } finally {
+      setSavingQR(false);
     }
   };
 
@@ -129,7 +150,7 @@ export default function PhotoReview({
             animate={{ opacity: 1 }}
           >
             <span className="text-5xl">❌</span>
-            <p className="text-red-400 font-bold">{errorMsg}</p>
+            <p className="text-red-400 font-bold">{renderError}</p>
             <button onClick={onRetake} className="btn-retro" style={{ background: accent }}>
               Retake Photo
             </button>
@@ -155,7 +176,7 @@ export default function PhotoReview({
             >
               <button
                 type="button"
-                onClick={() => setFrameTheme('dark')}
+                onClick={() => changeTheme('dark')}
                 className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider transition-all ${
                   frameTheme === 'dark'
                     ? 'text-black shadow'
@@ -169,7 +190,7 @@ export default function PhotoReview({
               </button>
               <button
                 type="button"
-                onClick={() => setFrameTheme('light')}
+                onClick={() => changeTheme('light')}
                 className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider transition-all ${
                   frameTheme === 'light'
                     ? 'text-black shadow'
@@ -224,8 +245,8 @@ export default function PhotoReview({
               </span>
             </label>
 
-            {errorMsg && (
-              <p className="text-red-400 text-xs text-center max-w-sm">{errorMsg}</p>
+            {saveError && (
+              <p className="text-red-400 text-xs text-center max-w-sm">{saveError}</p>
             )}
 
             {/* Action Buttons - Fully Mobile Responsive Grid */}
@@ -250,14 +271,15 @@ export default function PhotoReview({
 
               <button
                 onClick={handleGetQR}
-                className="btn-retro col-span-2 py-3.5 text-base flex items-center justify-center gap-2 text-black font-black shadow-lg"
+                disabled={savingQR}
+                className="btn-retro col-span-2 py-3.5 text-base flex items-center justify-center gap-2 text-black font-black shadow-lg disabled:opacity-60"
                 id="get-qr-btn"
                 style={{
                   background:
                     eventConfig.secondaryColor || '#FF9F1C',
                 }}
               >
-                <span>📱</span> GET MY QR CODE
+                <span>📱</span> {savingQR ? 'SAVING…' : 'GET MY QR CODE'}
               </button>
 
               <button
@@ -301,7 +323,6 @@ export default function PhotoReview({
                   downloadUrl={saveResult.downloadUrl}
                   isLocal={saveResult.isLocal}
                   onNewSession={onStartAgain}
-                  accentColor={accent}
                 />
               </div>
             </div>

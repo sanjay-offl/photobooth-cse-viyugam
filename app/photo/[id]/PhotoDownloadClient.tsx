@@ -22,6 +22,7 @@ type Status = 'loading' | 'found' | 'not-found' | 'expired' | 'error' | 'local-m
 export default function PhotoDownloadClient({ id }: Props) {
   const [status, setStatus] = useState<Status>('loading');
   const [photo, setPhoto] = useState<PhotoData | null>(null);
+  const [expiresIn, setExpiresIn] = useState(0);
 
   useEffect(() => {
     const fetchPhoto = async () => {
@@ -31,8 +32,11 @@ export default function PhotoDownloadClient({ id }: Props) {
         if (res.status === 404) { setStatus('not-found'); return; }
         if (res.status === 410) { setStatus('expired'); return; }
         if (!res.ok) { setStatus('error'); return; }
-        const data = await res.json();
+        const data: PhotoData = await res.json();
         setPhoto(data);
+        setExpiresIn(
+          Math.max(0, Math.floor((new Date(data.expiresAt).getTime() - Date.now()) / 3600_000)),
+        );
         setStatus('found');
       } catch {
         setStatus('error');
@@ -67,8 +71,6 @@ export default function PhotoDownloadClient({ id }: Props) {
       alert('Link copied to clipboard!');
     }
   };
-
-  const expiresIn = photo ? Math.max(0, Math.floor((new Date(photo.expiresAt).getTime() - Date.now()) / 3600_000)) : 0;
 
   return (
     <main className="min-h-screen bg-[#0A0A0A] halftone-bg flex flex-col items-center justify-center px-4 py-8">

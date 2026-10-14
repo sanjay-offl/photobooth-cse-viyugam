@@ -146,9 +146,12 @@ export default function ChessArenaPage() {
 
   const theme = isDark ? DARK_THEME : LIGHT_THEME;
 
-  // Persist theme preference
+  // Persist theme preference. The server always renders the dark theme first,
+  // then we sync the stored preference after mount to avoid a hydration
+  // mismatch (reading localStorage during render would differ client/server).
   useEffect(() => {
     const saved = localStorage.getItem('chess-theme');
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (saved === 'light') setIsDark(false);
   }, []);
   useEffect(() => {

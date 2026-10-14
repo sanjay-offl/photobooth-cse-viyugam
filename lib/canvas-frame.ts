@@ -274,7 +274,8 @@ function drawVibeCodeBadge(ctx: CanvasRenderingContext2D, cx: number, cy: number
     const a = (i * Math.PI) / 4 + Math.PI / 8;
     const px = Math.cos(a) * r;
     const py = Math.sin(a) * r;
-    i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+    if (i === 0) ctx.moveTo(px, py);
+    else ctx.lineTo(px, py);
   }
   ctx.closePath();
   ctx.fillStyle = pal.secondaryColor;
@@ -523,7 +524,8 @@ function drawPromptActionBlast(ctx: CanvasRenderingContext2D, cx: number, cy: nu
     const r = i % 2 === 0 ? size * 0.52 : size * 0.28;
     const px = Math.cos(a) * r;
     const py = Math.sin(a) * r;
-    i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+    if (i === 0) ctx.moveTo(px, py);
+    else ctx.lineTo(px, py);
   }
   ctx.closePath();
   ctx.fillStyle = pal.primaryColor;

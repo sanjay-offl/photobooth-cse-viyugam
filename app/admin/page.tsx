@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
@@ -12,6 +12,32 @@ interface Settings {
   secondaryColor: string;
   retentionHours: number;
   maxPhotoSizeMb: number;
+}
+
+interface FieldProps {
+  label: string;
+  field: keyof Settings;
+  settings: Settings | null;
+  onUpdate: (field: keyof Settings, value: string | number) => void;
+  type?: string;
+  min?: number;
+  max?: number;
+}
+
+function Field({ label, field, settings, onUpdate, type = 'text', min, max }: FieldProps) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <label className="text-[#FF6500] text-xs font-rajdhani font-bold uppercase tracking-wider">{label}</label>
+      <input
+        type={type}
+        value={String(settings?.[field] ?? '')}
+        min={min}
+        max={max}
+        onChange={(e) => onUpdate(field, type === 'number' ? Number(e.target.value) : e.target.value)}
+        className="bg-neutral-900 border border-neutral-700 text-white px-3 py-2 rounded-lg focus:border-[#FF6500] focus:outline-none transition-colors text-sm font-inter"
+      />
+    </div>
+  );
 }
 
 export default function AdminPage() {
@@ -66,19 +92,9 @@ export default function AdminPage() {
     setTimeout(() => setMsg(''), 4000);
   };
 
-  const Field = ({ label, field, type = 'text', min, max }: { label: string; field: keyof Settings; type?: string; min?: number; max?: number }) => (
-    <div className="flex flex-col gap-1.5">
-      <label className="text-[#FF6500] text-xs font-rajdhani font-bold uppercase tracking-wider">{label}</label>
-      <input
-        type={type}
-        value={String(settings?.[field] ?? '')}
-        min={min}
-        max={max}
-        onChange={(e) => setSettings((s) => s ? { ...s, [field]: type === 'number' ? Number(e.target.value) : e.target.value } : s)}
-        className="bg-neutral-900 border border-neutral-700 text-white px-3 py-2 rounded-lg focus:border-[#FF6500] focus:outline-none transition-colors text-sm font-inter"
-      />
-    </div>
-  );
+  const updateField = (field: keyof Settings, value: string | number) => {
+    setSettings((s) => (s ? { ...s, [field]: value } : s));
+  };
 
   if (!authed) {
     return (
@@ -132,10 +148,10 @@ export default function AdminPage() {
               <h2 className="text-[#FF6500] font-bebas text-xl tracking-wide">
                 EVENT BRANDING
               </h2>
-              <Field label="Event Title" field="eventTitle" />
-              <Field label="Institution Name" field="institutionName" />
-              <Field label="Event Date" field="eventDate" />
-              <Field label="Tagline" field="tagline" />
+              <Field label="Event Title" field="eventTitle" settings={settings} onUpdate={updateField} />
+              <Field label="Institution Name" field="institutionName" settings={settings} onUpdate={updateField} />
+              <Field label="Event Date" field="eventDate" settings={settings} onUpdate={updateField} />
+              <Field label="Tagline" field="tagline" settings={settings} onUpdate={updateField} />
             </div>
 
             {/* Colors */}
@@ -170,8 +186,8 @@ export default function AdminPage() {
               <h2 className="text-[#FF6500] font-bebas text-xl tracking-wide">
                 STORAGE & LIMITS
               </h2>
-              <Field label="Photo Retention (hours)" field="retentionHours" type="number" min={1} max={168} />
-              <Field label="Max Photo Size (MB)" field="maxPhotoSizeMb" type="number" min={1} max={50} />
+              <Field label="Photo Retention (hours)" field="retentionHours" type="number" min={1} max={168} settings={settings} onUpdate={updateField} />
+              <Field label="Max Photo Size (MB)" field="maxPhotoSizeMb" type="number" min={1} max={50} settings={settings} onUpdate={updateField} />
             </div>
 
             {/* Firebase Status */}

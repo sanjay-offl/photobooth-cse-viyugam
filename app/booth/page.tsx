@@ -1,12 +1,12 @@
 'use client';
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import CameraView from '@/components/CameraView';
 import PhotoReview from '@/components/PhotoReview';
 import RetroDecorations from '@/components/RetroDecorations';
-import { getEvent, EventConfig, EVENTS, FrameTheme, getEventThemeColors } from '@/lib/events';
+import { getEvent, EventConfig, EVENTS, FrameTheme } from '@/lib/events';
 
 type Step = 'camera' | 'review';
 
@@ -22,22 +22,20 @@ function BoothContent() {
   const [capturedCanvas, setCapturedCanvas] = useState<HTMLCanvasElement | null>(null);
   const router = useRouter();
 
-  const pal = getEventThemeColors(event, theme);
-
-  const handleCapture = useCallback((canvas: HTMLCanvasElement) => {
+  const handleCapture = (canvas: HTMLCanvasElement) => {
     setCapturedCanvas(canvas);
     setStep('review');
-  }, []);
+  };
 
-  const handleRetake = useCallback(() => {
+  const handleRetake = () => {
     setCapturedCanvas(null);
     setStep('camera');
-  }, []);
+  };
 
-  const handleStartAgain = useCallback(() => {
+  const handleStartAgain = () => {
     setCapturedCanvas(null);
     router.push('/');
-  }, [router]);
+  };
 
   return (
     <main

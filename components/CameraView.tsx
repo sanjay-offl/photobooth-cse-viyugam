@@ -21,26 +21,44 @@ export default function CameraView({ onCapture, accentColor = '#FFD400' }: Camer
   const [useCountdown, setUseCountdown] = useState(true);
   const [flash, setFlash] = useState(false);
   const [permissionDenied, setPermissionDenied] = useState(false);
+  const [retryTick, setRetryTick] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const initCamera = useCallback(async (deviceId?: string) => {
-    if (!videoRef.current) return;
-    setError(null); setReady(false);
-    stopCamera(streamRef.current);
-    try {
-      const stream = await startCamera(videoRef.current, deviceId, true);
-      streamRef.current = stream;
-      setReady(true);
-      const devs = await getCameraDevices();
-      setDevices(devs);
-    } catch (err) {
-      const type = getCameraErrorType(err);
-      setError(type);
-      if (type === 'permission-denied') setPermissionDenied(true);
-    }
-  }, []);
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    let cancelled = false;
 
-  useEffect(() => { initCamera(activeDevice); return () => stopCamera(streamRef.current); }, [activeDevice, initCamera]);
+    stopCamera(streamRef.current);
+
+    startCamera(video, activeDevice, true)
+      .then((stream) => {
+        if (cancelled) {
+          stopCamera(stream);
+          return null;
+        }
+        streamRef.current = stream;
+        setError(null);
+        setPermissionDenied(false);
+        setReady(true);
+        return getCameraDevices();
+      })
+      .then((devs) => {
+        if (!cancelled && devs) setDevices(devs);
+      })
+      .catch((err) => {
+        if (cancelled) return;
+        const type = getCameraErrorType(err);
+        setError(type);
+        setReady(false);
+        setPermissionDenied(type === 'permission-denied');
+      });
+
+    return () => {
+      cancelled = true;
+      stopCamera(streamRef.current);
+    };
+  }, [activeDevice, retryTick]);
 
   const doCapture = useCallback(() => {
     if (!videoRef.current) return;
@@ -62,8 +80,12 @@ export default function CameraView({ onCapture, accentColor = '#FFD400' }: Camer
   }, [useCountdown, doCapture]);
 
   const switchCamera = () => {
+    if (devices.length < 2) return;
     const idx = devices.findIndex((d) => d.deviceId === activeDevice);
-    setActiveDevice(devices[(idx + 1) % devices.length]?.deviceId);
+    const next = devices[(idx + 1) % devices.length]?.deviceId;
+    setReady(false);
+    setError(null);
+    setActiveDevice(next);
   };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,7 +111,17 @@ export default function CameraView({ onCapture, accentColor = '#FFD400' }: Camer
           {error === 'permission-denied' ? 'Allow camera access in browser settings.' : 'Your browser does not support camera access.'}
         </p>
         <div className="flex flex-col items-center gap-3">
-          <button onClick={() => initCamera()} className="btn-retro">Try Again</button>
+          <button
+            onClick={() => {
+              setError(null);
+              setPermissionDenied(false);
+              setReady(false);
+              setRetryTick((t) => t + 1);
+            }}
+            className="btn-retro"
+          >
+            Try Again
+          </button>
           <button onClick={() => fileInputRef.current?.click()} className="btn-retro-outline">📁 Upload a Photo</button>
           <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleFileUpload} />
         </div>
