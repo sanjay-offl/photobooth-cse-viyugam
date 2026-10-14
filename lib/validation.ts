@@ -16,12 +16,12 @@ export const PhotoMetadataSchema = z.object({
 export type PhotoMetadata = z.infer<typeof PhotoMetadataSchema>;
 
 export const EventSettingsSchema = z.object({
-  eventTitle: z.string().min(1).max(100).default('VIBE CODING'),
-  institutionName: z.string().max(100).default('CSE Department'),
-  eventDate: z.string().default('2026'),
-  tagline: z.string().max(200).default('BUILD SOMETHING. CAPTURE THE MOMENT.'),
-  primaryColor: z.string().regex(/^#[0-9a-fA-F]{6}$/).default('#FFD400'),
-  secondaryColor: z.string().regex(/^#[0-9a-fA-F]{6}$/).default('#FF9F1C'),
+  eventTitle: z.string().min(1).max(100).default('VIYUGAM 2K26'),
+  institutionName: z.string().max(100).default('CSE Dept · PPG Institute of Technology'),
+  eventDate: z.string().default('15 October 2026'),
+  tagline: z.string().max(200).default('DIGITAL RETRO SELFIE BOOTH & CHESS ARENA'),
+  primaryColor: z.string().regex(/^#[0-9a-fA-F]{6}$/).default('#E05C1A'),
+  secondaryColor: z.string().regex(/^#[0-9a-fA-F]{6}$/).default('#FF8833'),
   retentionHours: z.number().int().min(1).max(168).default(24),
   maxPhotoSizeMb: z.number().int().min(1).max(50).default(10),
 });

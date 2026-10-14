@@ -19,10 +19,10 @@ export default function CountdownOverlay({ count, accentColor = '#FFD400' }: Cou
               transition={{ duration: 0.4, type: 'spring', stiffness: 200 }}
               className="relative z-10 flex flex-col items-center gap-2">
               <span className="text-[140px] font-black leading-none select-none"
-                style={{ color: accentColor, textShadow: `0 0 40px ${accentColor}cc, 4px 4px 0 #000`, fontFamily: "'Anton', 'Impact', sans-serif" }}>
+                style={{ color: accentColor, textShadow: `0 0 40px ${accentColor}cc, 4px 4px 0 #000`, fontFamily: "'Bebas Neue', Impact, sans-serif" }}>
                 {count}
               </span>
-              <span className="text-white text-2xl font-bold tracking-widest uppercase" style={{ fontFamily: "'Anton', sans-serif" }}>
+              <span className="text-white text-2xl font-bold tracking-widest uppercase" style={{ fontFamily: "'Bebas Neue', Impact, sans-serif" }}>
                 Get Ready!
               </span>
             </motion.div>

@@ -20,7 +20,6 @@ export default function CameraView({ onCapture, accentColor = '#FFD400' }: Camer
   const [countdown, setCountdown] = useState<number | null>(null);
   const [useCountdown, setUseCountdown] = useState(true);
   const [flash, setFlash] = useState(false);
-  const [permissionDenied, setPermissionDenied] = useState(false);
   const [retryTick, setRetryTick] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -39,7 +38,6 @@ export default function CameraView({ onCapture, accentColor = '#FFD400' }: Camer
         }
         streamRef.current = stream;
         setError(null);
-        setPermissionDenied(false);
         setReady(true);
         return getCameraDevices();
       })
@@ -51,7 +49,6 @@ export default function CameraView({ onCapture, accentColor = '#FFD400' }: Camer
         const type = getCameraErrorType(err);
         setError(type);
         setReady(false);
-        setPermissionDenied(type === 'permission-denied');
       });
 
     return () => {
@@ -100,21 +97,31 @@ export default function CameraView({ onCapture, accentColor = '#FFD400' }: Camer
     img.src = URL.createObjectURL(file);
   };
 
-  if (permissionDenied || error === 'not-supported') {
+  if (error) {
+    const errorTitle =
+      error === 'permission-denied'
+        ? 'Camera Access Denied'
+        : error === 'not-found'
+          ? 'No Camera Found'
+          : 'Camera Not Available';
+    const errorBody =
+      error === 'permission-denied'
+        ? 'Allow camera access in your browser settings, then try again.'
+        : error === 'not-found'
+          ? 'No camera device was detected on this device. You can upload a photo instead.'
+          : 'Your browser does not support camera access. You can upload a photo instead.';
+
     return (
       <div className="flex flex-col items-center justify-center gap-6 h-full p-8">
         <div className="text-6xl">📷</div>
-        <h2 className="text-2xl font-black text-center" style={{ fontFamily: "'Anton', sans-serif", color: accentColor }}>
-          {error === 'permission-denied' ? 'Camera Access Denied' : 'Camera Not Available'}
+        <h2 className="text-2xl font-black text-center" style={{ fontFamily: "'Bebas Neue', Impact, sans-serif", color: accentColor }}>
+          {errorTitle}
         </h2>
-        <p className="text-gray-300 text-center max-w-sm text-sm">
-          {error === 'permission-denied' ? 'Allow camera access in browser settings.' : 'Your browser does not support camera access.'}
-        </p>
+        <p className="text-gray-300 text-center max-w-sm text-sm">{errorBody}</p>
         <div className="flex flex-col items-center gap-3">
           <button
             onClick={() => {
               setError(null);
-              setPermissionDenied(false);
               setReady(false);
               setRetryTick((t) => t + 1);
             }}

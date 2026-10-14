@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { siteUrl } from '@/lib/site';
 
-const OG_IMAGE = '/og-image.jpg';
+const OG_IMAGE = `${siteUrl}/og-image.jpg`;
 const OG_IMAGE_WIDTH = 1200;
 const OG_IMAGE_HEIGHT = 630;
 

@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const DEFAULT_SETTINGS = {
-  eventTitle: 'VIBE CODING',
-  institutionName: 'CSE Department',
-  eventDate: '2026',
-  tagline: 'BUILD SOMETHING. CAPTURE THE MOMENT.',
-  primaryColor: '#FFD400',
-  secondaryColor: '#FF9F1C',
+  eventTitle: 'VIYUGAM 2K26',
+  institutionName: 'CSE Dept · PPG Institute of Technology',
+  eventDate: '15 October 2026',
+  tagline: 'DIGITAL RETRO SELFIE BOOTH & CHESS ARENA',
+  primaryColor: '#E05C1A',
+  secondaryColor: '#FF8833',
   retentionHours: 24,
   maxPhotoSizeMb: 10,
 };
