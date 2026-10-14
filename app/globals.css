@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  --yellow: #FFD400;
+  --orange: #FF9F1C;
+  --cream: #F5EBDD;
+  --black: #000000;
+  --white: #FFFFFF;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  background: #000;
+  color: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  min-height: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* ── Retro button styles ────────────────────────────────────────────── */
+.btn-retro {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--yellow);
+  color: #000;
+  font-family: 'Anton', 'Impact', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  padding: 0.65rem 1.5rem;
+  border: 3px solid #000;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  box-shadow: 4px 4px 0 #000;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-retro:hover:not(:disabled) {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #000;
+}
+.btn-retro:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #000;
+}
+.btn-retro:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-retro-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--yellow);
+  font-family: 'Anton', 'Impact', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  padding: 0.65rem 1.5rem;
+  border: 3px solid var(--yellow);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-retro-outline:hover:not(:disabled) {
+  background: rgba(255, 212, 0, 0.1);
+  transform: translate(-1px, -1px);
+}
+.btn-retro-outline:active:not(:disabled) {
+  transform: translate(1px, 1px);
+}
+
+.btn-retro-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  background: transparent;
+  color: var(--yellow);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--yellow);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-retro-sm:hover {
+  background: rgba(255, 212, 0, 0.15);
+}
+
+/* ── Retro poster heading ─────────────────────────────────────────────── */
+.retro-heading {
+  font-family: 'Anton', 'Impact', sans-serif;
+  text-transform: uppercase;
+  color: #fff;
+  -webkit-text-stroke: 4px var(--yellow);
+  paint-order: stroke fill;
+  text-shadow: 6px 6px 0 rgba(0,0,0,0.8), 0 0 40px rgba(255,212,0,0.4);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.retro-heading-sm {
+  font-family: 'Anton', 'Impact', sans-serif;
+  text-transform: uppercase;
+  color: var(--yellow);
+  letter-spacing: 0.08em;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #111; }
+::-webkit-scrollbar-thumb { background: var(--yellow); border-radius: 3px; }
+
+/* ── Focus ring ─────────────────────────────────────────────────────── */
+:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+
+/* ── Halftone overlay pattern ────────────────────────────────────────── */
+.halftone-bg {
+  background-image: radial-gradient(circle, rgba(255,212,0,0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* ── Card styles ─────────────────────────────────────────────────────── */
+.retro-card {
+  background: #0a0a0a;
+  border: 3px solid var(--yellow);
+  border-radius: 16px;
+  box-shadow: 0 0 40px rgba(255,212,0,0.15), inset 0 1px 0 rgba(255,212,0,0.1);
+}
+
+/* ── Grid frame ──────────────────────────────────────────────────────── */
+.frame-border {
+  border: 6px solid var(--yellow);
+  border-radius: 12px;
+  box-shadow: 0 0 60px rgba(255,212,0,0.35), 8px 8px 0 #FF9F1C;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
