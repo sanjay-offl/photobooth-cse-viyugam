@@ -1,4 +1,4 @@
-# VIBESNAP — VIYUGAM 2K26 Multi-Event Photo Booth
+# VIYUGAM 2K26 — Multi-Event Photo Booth & Chess Arena
 
 > **CSE Department · PPG Institute of Technology**
 
