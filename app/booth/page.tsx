@@ -39,8 +39,7 @@ function BoothContent() {
 
   return (
     <main
-      className="relative min-h-screen flex flex-col overflow-x-hidden transition-colors duration-300"
-      style={{ background: theme === 'dark' ? '#0A0A0A' : '#141414' }}
+      className="relative min-h-screen flex flex-col overflow-x-hidden bg-[#F8F6F2] text-[#1A1A1A] overflow-x-hidden"
     >
       <RetroDecorations />
 
@@ -58,7 +57,7 @@ function BoothContent() {
               style={{
                 color: '#FF6500',
                 borderColor: 'rgba(255, 101, 0, 0.35)',
-                background: 'rgba(20, 20, 20, 0.85)',
+                background: 'rgba(255, 255, 255, 0.9)',
               }}
               aria-label="Back to home"
             >
@@ -68,7 +67,7 @@ function BoothContent() {
 
           <div className="text-center justify-self-center min-w-0">
             <p
-              className="font-bebas text-lg sm:text-xl uppercase tracking-wider truncate text-white"
+              className="font-bebas text-lg sm:text-xl uppercase tracking-wider truncate text-[#1A1A1A]"
             >
               {event.emoji} {event.title}
             </p>
@@ -84,7 +83,7 @@ function BoothContent() {
               style={{
                 borderColor: 'rgba(255, 101, 0, 0.4)',
                 color: '#FF6500',
-                background: 'rgba(20, 20, 20, 0.85)',
+                background: 'rgba(255, 255, 255, 0.9)',
               }}
               title="Toggle frame theme"
             >
@@ -116,7 +115,7 @@ function BoothContent() {
               >
                 {s === 'camera' ? 'SNAP' : 'REVIEW'}
               </span>
-              {i < 1 && <div className="w-8 h-px bg-neutral-800 mx-1" />}
+              {i < 1 &&               <div className="w-8 h-px bg-[#E8DDD6] mx-1" />}
             </div>
           ))}
         </div>
@@ -132,11 +131,11 @@ function BoothContent() {
           >
             <div className="text-center">
               <h1
-                className="text-2xl sm:text-3xl font-bebas tracking-wide uppercase text-white"
+                className="text-2xl sm:text-3xl font-bebas tracking-wide uppercase text-[#1A1A1A]"
               >
                 READY FOR YOUR CLOSEUP?
               </h1>
-              <p className="text-neutral-400 text-xs sm:text-sm font-rajdhani tracking-wider mt-0.5">
+              <p className="text-[#666666] text-xs sm:text-sm font-rajdhani tracking-wider mt-0.5">
                 {event.tagline}
               </p>
             </div>
@@ -158,11 +157,11 @@ function BoothContent() {
           >
             <div className="text-center">
               <h1
-                className="text-2xl sm:text-3xl font-bebas tracking-wide uppercase text-white"
+                className="text-2xl sm:text-3xl font-bebas tracking-wide uppercase text-[#1A1A1A]"
               >
                 YOUR {event.title} SELFIE
               </h1>
-              <p className="text-neutral-400 text-xs sm:text-sm font-rajdhani tracking-wider mt-0.5">
+              <p className="text-[#666666] text-xs sm:text-sm font-rajdhani tracking-wider mt-0.5">
                 Toggle between Dark & Light themes, download or scan QR code
               </p>
             </div>
@@ -185,7 +184,7 @@ export default function BoothPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center">
+        <div className="min-h-screen bg-[#F8F6F2] flex items-center justify-center">
           <p className="text-[#FF6500] font-bold font-rajdhani animate-pulse text-base tracking-widest">
             LOADING BOOTH…
           </p>

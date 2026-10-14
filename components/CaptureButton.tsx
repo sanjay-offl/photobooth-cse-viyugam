@@ -15,7 +15,7 @@ export default function CaptureButton({ onClick, disabled, label = 'CAPTURE', ac
       style={{ '--ring-color': accentColor } as React.CSSProperties}
       whileTap={{ scale: 0.93 }} whileHover={{ scale: disabled ? 1 : 1.07 }}
       transition={{ type: 'spring', stiffness: 400, damping: 17 }}>
-      <div className="w-24 h-24 rounded-full flex items-center justify-center shadow-lg bg-white dark:bg-[#1A1A1A]"
+      <div className="w-24 h-24 rounded-full flex items-center justify-center shadow-lg bg-white"
         style={{ border: `4px solid ${accentColor}`, boxShadow: `0 0 24px rgba(224, 92, 26, 0.25)` }}>
         <motion.div className="w-[72px] h-[72px] rounded-full flex items-center justify-center"
           style={{ background: accentColor }}

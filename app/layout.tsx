@@ -17,7 +17,6 @@ export const viewport: Viewport = {
   maximumScale: 1,
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#E05C1A' },
-    { media: '(prefers-color-scheme: dark)', color: '#121212' },
   ],
 };
 
@@ -120,7 +119,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
       </head>
-      <body className="bg-[#F8F6F2] dark:bg-[#121212] text-[#1A1A1A] dark:text-[#F5F5F5] antialiased min-h-screen flex flex-col transition-colors duration-200">
+      <body className="bg-[#F8F6F2] text-[#1A1A1A] antialiased min-h-screen flex flex-col">
         {children}
       </body>
     </html>

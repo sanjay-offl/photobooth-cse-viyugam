@@ -1,23 +1,10 @@
 'use client';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Chess, Square } from 'chess.js';
 import Link from 'next/link';
 
 // ─── Theme definitions (Orange, Black, White) ───────────────────────────────
-const DARK_THEME = {
-  bg: '#0A0A0A',
-  surface: '#141414',
-  text: '#FFFFFF',
-  textSub: '#A3A3A3',
-  orange: '#FF6500',
-  border: 'rgba(255,255,255,0.08)',
-  sqLight: '#262626',
-  sqDark: '#141414',
-  pieceLight: '#FFFFFF',
-  pieceDark: '#FF6500',
-};
-
 const LIGHT_THEME = {
   bg: '#FFFFFF',
   surface: '#F4F4F5',
@@ -31,7 +18,7 @@ const LIGHT_THEME = {
   pieceDark: '#FF6500',
 };
 
-type Theme = typeof DARK_THEME;
+type Theme = typeof LIGHT_THEME;
 
 // ─── Chess piece unicode symbols ─────────────────────────────────────────────
 const PIECE_SYMBOLS: Record<string, string> = {
@@ -134,7 +121,6 @@ function InfoCard({ theme, children }: { theme: Theme; children: React.ReactNode
 
 // ─── Chess Arena Page ─────────────────────────────────────────────────────────
 export default function ChessArenaPage() {
-  const [isDark, setIsDark] = useState(true);
   const [game, setGame] = useState(() => new Chess());
   const [selected, setSelected] = useState<Square | null>(null);
   const [legalMoves, setLegalMoves] = useState<string[]>([]);
@@ -144,19 +130,7 @@ export default function ChessArenaPage() {
   const [promotionPending, setPromotionPending] = useState<{ from: Square; to: Square } | null>(null);
   const [tab, setTab] = useState<'board'|'rules'|'about'>('board');
 
-  const theme = isDark ? DARK_THEME : LIGHT_THEME;
-
-  // Persist theme preference. The server always renders the dark theme first,
-  // then we sync the stored preference after mount to avoid a hydration
-  // mismatch (reading localStorage during render would differ client/server).
-  useEffect(() => {
-    const saved = localStorage.getItem('chess-theme');
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (saved === 'light') setIsDark(false);
-  }, []);
-  useEffect(() => {
-    localStorage.setItem('chess-theme', isDark ? 'dark' : 'light');
-  }, [isDark]);
+  const theme = LIGHT_THEME;
 
   const updateStatus = useCallback((g: Chess) => {
     if (g.isCheckmate()) setStatus(`Checkmate! ${g.turn() === 'w' ? 'Black' : 'White'} wins 🏆`);
@@ -248,20 +222,7 @@ export default function ChessArenaPage() {
           </p>
         </div>
 
-        {/* Theme toggle */}
-        <motion.button
-          onClick={() => setIsDark(d => !d)}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full font-rajdhani font-bold text-xs sm:text-sm transition-all"
-          style={{ background: theme.surface, border: `1px solid ${theme.border}`, color: theme.text }}
-          whileTap={{ scale: 0.95 }}
-          id="theme-toggle-btn"
-          aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
-        >
-          <motion.span animate={{ rotate: isDark ? 0 : 180 }} transition={{ duration: 0.4 }}>
-            {isDark ? '🌙' : '☀️'}
-          </motion.span>
-          {isDark ? 'Dark' : 'Light'}
-        </motion.button>
+        <span className="text-xs font-rajdhani font-bold text-[#666666]">LIGHT THEME</span>
       </nav>
 
       {/* Hero */}
@@ -300,7 +261,7 @@ export default function ChessArenaPage() {
           CSE Department · PPG Institute of Technology, Coimbatore · VIYUGAM 2K26
         </p>
 
-        <Link href={`/booth?event=chess-arena&theme=${isDark ? 'dark' : 'light'}`} className="mt-2">
+        <Link href="/booth?event=chess-arena&theme=light" className="mt-2">
           <motion.button
             className="btn-retro px-6 py-3 text-lg"
             whileHover={{ scale: 1.05 }}

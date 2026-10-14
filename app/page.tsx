@@ -16,9 +16,9 @@ function EventCard({ event, index }: { event: EventConfig; index: number }) {
       whileHover={{ scale: 1.02, y: -4 }}
       className="relative rounded-2xl overflow-hidden cursor-pointer group transition-all"
       style={{
-        background: '#141414',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
-        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6)',
+        background: '#FFFFFF',
+        border: '1px solid #E8DDD6',
+        boxShadow: '0 8px 32px rgba(60, 35, 20, 0.1)',
       }}
     >
       <Link href={href} id={`event-card-${event.id}`} className="block">
@@ -43,7 +43,7 @@ function EventCard({ event, index }: { event: EventConfig; index: number }) {
             </span>
 
             <span
-              className="text-[10px] font-bold px-2 py-0.5 rounded-full border border-neutral-800 bg-neutral-900 text-neutral-300 flex items-center gap-1"
+              className="text-[10px] font-bold px-2 py-0.5 rounded-full border border-[#E8DDD6] bg-[#FFF8F4] text-[#666666] flex items-center gap-1"
               title="Supports both Dark & Light theme frames"
             >
               <span>🌙</span>
@@ -56,7 +56,7 @@ function EventCard({ event, index }: { event: EventConfig; index: number }) {
             <span className="text-3xl sm:text-4xl select-none flex-shrink-0">{event.emoji}</span>
             <div>
               <h2
-                className="text-2xl sm:text-3xl font-black font-bebas tracking-wide uppercase leading-tight text-white group-hover:text-[#FF6500] transition-colors"
+                className="text-2xl sm:text-3xl font-black font-bebas tracking-wide uppercase leading-tight text-[#1A1A1A] group-hover:text-[#FF6500] transition-colors"
               >
                 {event.title}
               </h2>
@@ -67,7 +67,7 @@ function EventCard({ event, index }: { event: EventConfig; index: number }) {
           </div>
 
           {/* Description */}
-          <p className="text-neutral-300 text-xs sm:text-sm font-inter leading-relaxed">
+          <p className="text-[#555555] text-xs sm:text-sm font-inter leading-relaxed">
             {event.description}
           </p>
 
@@ -95,7 +95,7 @@ function EventCard({ event, index }: { event: EventConfig; index: number }) {
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-[#0A0A0A] text-white overflow-x-hidden px-4 py-8 sm:py-12">
+    <main className="relative min-h-screen bg-[#F8F6F2] text-[#1A1A1A] overflow-x-hidden px-4 py-8 sm:py-12">
       <RetroDecorations />
 
       <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center gap-8 sm:gap-10">
@@ -109,19 +109,19 @@ export default function Home() {
           {/* Eyebrow badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[rgba(255,101,0,0.35)] bg-[rgba(255,101,0,0.1)]">
             <span className="w-2 h-2 rounded-full bg-[#FF6500] animate-pulse" />
-            <span className="text-[11px] sm:text-xs font-bold font-rajdhani tracking-[0.2em] uppercase text-[#FF6500]">
+            <span className="text-[11px] sm:text-xs font-bold font-rajdhani tracking-[0.2em] uppercase text-[#E05C1A]">
               NATIONAL LEVEL TECHNICAL SYMPOSIUM · CSE DEPT
             </span>
           </div>
 
           {/* Viyugam Main Title Lockup */}
           <h1
-            className="text-6xl sm:text-8xl md:text-9xl font-bebas font-black tracking-tight leading-none my-1"
+          className="text-6xl sm:text-8xl md:text-9xl font-bebas font-black tracking-tight leading-none my-1 text-[#1A1A1A]"
             style={{
               textShadow: '0 0 45px rgba(255, 101, 0, 0.45)',
             }}
           >
-            VIYU<span className="text-[#FF6500]">GAM</span> <span className="text-white">2K26</span>
+            VIYU<span className="text-[#FF6500]">GAM</span> <span className="text-[#1A1A1A]">2K26</span>
           </h1>
 
           {/* Subheading */}
@@ -129,13 +129,13 @@ export default function Home() {
             <p className="text-xl sm:text-2xl font-bebas tracking-widest text-[#FF6500] uppercase">
               DIGITAL RETRO SELFIE BOOTH & CHESS ARENA
             </p>
-            <p className="text-xs sm:text-sm font-rajdhani text-neutral-400 font-semibold tracking-wider uppercase">
+            <p className="text-xs sm:text-sm font-rajdhani text-[#666666] font-semibold tracking-wider uppercase">
               PPG INSTITUTE OF TECHNOLOGY, COIMBATORE · 15 OCTOBER 2026
             </p>
           </div>
 
-          <p className="text-neutral-300 text-xs sm:text-sm max-w-md text-center leading-relaxed font-inter mt-1">
-            Pick your event, snap a selfie in our custom retro event frames, toggle between dark & light themes, and scan the QR code to download instantly to your phone.
+          <p className="text-[#555555] text-xs sm:text-sm max-w-md text-center leading-relaxed font-inter mt-1">
+            Pick your event, snap a selfie in our custom retro event frames, choose a dark or light frame, and scan the QR code to download instantly to your phone.
           </p>
 
           {/* Highlights / Badges Bar */}
@@ -148,7 +148,7 @@ export default function Home() {
             ].map((badge) => (
               <span
                 key={badge}
-                className="text-[10px] sm:text-xs font-rajdhani font-bold px-3 py-1 rounded-md bg-[#141414] border border-[rgba(255,255,255,0.08)] text-neutral-300 tracking-wider"
+                className="text-[10px] sm:text-xs font-rajdhani font-bold px-3 py-1 rounded-md bg-white border border-[#E8DDD6] text-[#666666] tracking-wider"
               >
                 ✦ {badge}
               </span>
@@ -180,7 +180,7 @@ export default function Home() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
         >
-          <p className="text-xs text-neutral-400 leading-relaxed font-inter">
+          <p className="text-xs text-[#666666] leading-relaxed font-inter">
             <span className="text-[#FF6500] font-bold">🔒 Privacy Notice:</span>{' '}
             Your camera is accessed only with your permission. Cloud photos are temporary and automatically deleted after 24 hours.
           </p>

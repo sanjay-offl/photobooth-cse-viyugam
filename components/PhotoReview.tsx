@@ -180,7 +180,7 @@ export default function PhotoReview({
                 className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider transition-all ${
                   frameTheme === 'dark'
                     ? 'text-black shadow'
-                    : 'text-gray-400 hover:text-white'
+                    : 'text-[#666666] hover:text-[#1A1A1A]'
                 }`}
                 style={{
                   background: frameTheme === 'dark' ? accent : 'transparent',
@@ -194,7 +194,7 @@ export default function PhotoReview({
                 className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider transition-all ${
                   frameTheme === 'light'
                     ? 'text-black shadow'
-                    : 'text-gray-400 hover:text-white'
+                    : 'text-[#666666] hover:text-[#1A1A1A]'
                 }`}
                 style={{
                   background: frameTheme === 'light' ? accent : 'transparent',
@@ -239,7 +239,7 @@ export default function PhotoReview({
                 style={{ accentColor: accent }}
                 id="consent-checkbox"
               />
-              <span className="text-xs text-gray-300 leading-relaxed">
+              <span className="text-xs text-[#555555] leading-relaxed">
                 I consent to temporarily store my photo for 24 hours to generate a QR download link.
                 Auto-deleted afterwards.
               </span>
@@ -284,7 +284,7 @@ export default function PhotoReview({
 
               <button
                 onClick={onStartAgain}
-                className="btn-retro-outline col-span-2 py-2.5 text-xs text-gray-400 border-gray-700 hover:border-gray-500 hover:text-white"
+                className="btn-retro-outline col-span-2 py-2.5 text-xs text-[#666666] border-[#E8DDD6] hover:border-[#E05C1A] hover:text-[#1A1A1A]"
                 id="start-again-btn"
               >
                 🏠 Choose Another Event
